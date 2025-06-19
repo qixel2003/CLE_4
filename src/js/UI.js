@@ -21,10 +21,31 @@ export class UI extends ScreenElement {
         this.hearts = [];
 
          this.discoverySprites = [
-            { name: "capybara", discovered: false, spriteOff: Resources.Capyundiscover.toSprite(), spriteOn: Resources.Capydiscover.toSprite() },
-            { name: "monkey", discovered: true, spriteOff: Resources.Monkeyundiscover.toSprite(), spriteOn: Resources.MonkeyDiscover.toSprite() },
-            { name: "orchid", discovered: false, spriteOff: Resources.Orchidundiscover.toSprite(), spriteOn: Resources.Orchiddiscover.toSprite() },
+            { 
+                name: "capybara", 
+                discovered: false, 
+                spriteOff: Resources.Capyundiscover.toSprite(), 
+                spriteOn: Resources.Capydiscover.toSprite() 
+            },
+
+
+            { 
+                name: "monkey", 
+                discovered: false, 
+                spriteOff: Resources.Monkeyundiscover.toSprite(), 
+                spriteOn: Resources.MonkeyDiscover.toSprite()
+             },
+
+
+            { 
+                name: "orchid", 
+                discovered: false, 
+                spriteOff: Resources.Orchidundiscover.toSprite(), 
+                spriteOn: Resources.Orchiddiscover.toSprite() 
+            },
         ]
+
+        
     }
 
     async onInitialize(engine) {

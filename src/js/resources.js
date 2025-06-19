@@ -45,7 +45,7 @@ const Resources = {
     Monkeyundiscover: new ImageSource("images/monkeycaughticon-bw.png"),
 
     //undiscovered icons flowers
-    Orchidundiscover: new ImageSource("images/orchidicon.bw.png"),
+    Orchidundiscover: new ImageSource("images/orchidicon-bw.png"),
 
     //player   
     Player: new ImageSource('images/player-sprite.png'),
