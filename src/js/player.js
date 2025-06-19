@@ -159,6 +159,10 @@ export class Player extends Actor {
         if (this.health <= 0) {
             this.gameOver();
         }
+
+        if(sessionStorage.key === "flower"){
+            console.log("got an orchid")
+        }  
     }
     
 
@@ -176,6 +180,8 @@ onInitialize(engine) {
             if (this.flowerCount > 0) {
                 this.flowerCount -= 1
                 console.log("lost flower")
+                sessionStorage.removeItem("flower")
+                console.log(sessionStorage.getItem("flower"))
 
                 if (this.scene) {
                     this.scene.positionObstacle(Orchid, 1, this.scene.obstaclePositions);
@@ -187,8 +193,12 @@ onInitialize(engine) {
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
-            this.nearbyFlower = event.other.owner;
-            console.log("Standing near a flower");
+            sessionStorage.setItem("flower", "orchid")
+            console.log("got Orchid")
+            console.log(sessionStorage.getItem("flower"))
+            event.other.owner.kill()
+            this.flowerCount += 1
+            
         }
 
         if (event.other.owner instanceof SwampRose) {
@@ -196,12 +206,10 @@ onInitialize(engine) {
             event.other.owner.kill()
             this.flowerCount += 1
 
-            sessionStorage.setItem("orchid", "no")
+            
         }
 
-        if (sessionStorage.key === "orchid") {
-            console.log("got an orchid")
-        }
+        
 
     }
         

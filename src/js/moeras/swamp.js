@@ -9,7 +9,9 @@ import { SwampBorderTop } from "./swampBorderTop.js";
 import { SwampBorderBottom } from "./swampBorderBottom.js";
 import { BlueBush } from "./bluebush.js"
 import { SwampRose } from "./swampRose.js"
-import { SwampDoor } from "./door.js";
+import { SwampDoor } from "./door.js"
+import { SwampBackground } from "./background.js";
+
 
 export class MoerasScene extends Scene {
 
@@ -18,19 +20,16 @@ export class MoerasScene extends Scene {
     constructor() {
         super()
 
-         this.name = "moeras"
+        this.name = "moeras"
     }
 
 
 
     onActivate(ctx) {
         this.clear();
-        const bubble = new Actor({ pos: new Vector(640, 360) });
-        bubble.graphics.use(Resources.Bubble.toSprite());
-        bubble.on("pointerup", () => {
-            ctx.engine.goToScene('game');
-        });
-        this.add(bubble);
+
+        const swampbg = new SwampBackground({ pos: new Vector(0, 0) });
+        this.add(swampbg)
 
         this.obstaclePositions = [];
 

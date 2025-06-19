@@ -3,6 +3,8 @@ import { Resources, ResourceLoader } from '../resources.js'
 import { Player } from '../player.js'
 import { Net } from '../tropen/net.js'
 import { Food } from './food.js'
+import { SwampDoor } from './door.js'
+import { BlueBush } from './bluebush.js'
 
 export class Capybara extends Actor {
 
@@ -129,6 +131,7 @@ export class Capybara extends Actor {
     onInitialize(engine) {
         this.on('collisionstart', (event) => this.hitNet(event))
         this.on('collisionstart', (event) => this.hitFood(event))
+        this.on('collisionstart', (event) => this.onCollisionStart(event))
 
     }
 
@@ -141,7 +144,13 @@ export class Capybara extends Actor {
 
 
     onCollisionStart(event) {
-        console.log('Geraakt door:', event.other);
+       if (
+        event.other instanceof BlueBush ||
+        event.other instanceof SwampDoor
+    )  {
+        // Pick a new random direction, or try to move around
+        this.setRandomVelocity();
+    }
     }
 
     onCollisionEnd(event) {

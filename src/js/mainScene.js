@@ -82,9 +82,14 @@ export class MainScene extends Scene {
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
         this.camera.zoom = 1.35;
+        console.log(sessionStorage.getItem("flower"))
+        console.log("spawn2")
         console.log("spawn");
+       
         const playerUI = new UI(player)
         this.add(playerUI)
+
+      
     }
 
 }

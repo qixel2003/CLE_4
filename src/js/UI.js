@@ -1,9 +1,18 @@
 import '../css/style.css';
 import { ScreenElement, Vector, Sprite, ImageSource, Actor } from 'excalibur';
+import { Resources } from './resources';
+
 
 // Load heart images
 const heartFullImage = new ImageSource('images/hartred.png');
 const heartEmptyImage = new ImageSource('images/hartgrey.png');
+
+// //animal portrait discover
+
+// // const monkeyDiscover = Resources.Monkeydiscover
+
+//flower portrait discover
+// const monkeyDiscover = Resources.Monkeydiscover
 
 export class UI extends ScreenElement {
     constructor(player) {
@@ -16,7 +25,9 @@ export class UI extends ScreenElement {
         // Load the heart images
         await Promise.all([
             heartFullImage.load(),
-            heartEmptyImage.load()
+            heartEmptyImage.load(),
+
+          
         ]);
 
         // Scale the sprites down (e.g., 50%)
@@ -27,6 +38,10 @@ export class UI extends ScreenElement {
         this.heartEmpty.scale.setTo(0.15, 0.15);
 
         this.updateHearts(); // Initial render
+
+        
+        
+    
     }
 
     onPreUpdate() {
@@ -55,4 +70,8 @@ export class UI extends ScreenElement {
             this.hearts.push(heart);
         }
     }
+
+    // showAnimalPortraits(){
+       
+    // }
 }
