@@ -144,13 +144,13 @@ export class Capybara extends Actor {
 
 
     onCollisionStart(event) {
-       if (
-        event.other instanceof BlueBush ||
-        event.other instanceof SwampDoor
-    )  {
-        // Pick a new random direction, or try to move around
-        this.setRandomVelocity();
-    }
+        if (
+            event.other instanceof BlueBush ||
+            event.other instanceof SwampDoor
+        ) {
+            // Pick a new random direction, or try to move around
+            this.setRandomVelocity();
+        }
     }
 
     onCollisionEnd(event) {
@@ -175,6 +175,7 @@ export class Capybara extends Actor {
             event.other.owner.kill()
             this.kill()
             this.AnimalCount += 1
+
 
         }
     }

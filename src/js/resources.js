@@ -62,10 +62,27 @@ const Resources = {
 
     //moeras
     Swampbg: new ImageSource('images/moeras/swampbg.png'),
+    Swampbg1: new ImageSource('images/moeras/swampbg-1.png'),
+    Swampbg2: new ImageSource('images/moeras/swampbg-2.png'),
+    Swampbg3: new ImageSource('images/moeras/swampbg-3.png'),
+    Swampbg4: new ImageSource('images/moeras/swampbg-4.png'),
+    Swampbg5: new ImageSource('images/moeras/swampbg-5.png'),
+    Swampbg6: new ImageSource('images/moeras/swampbg-6.png'),
+    Swampbg7: new ImageSource('images/moeras/swampbg-7.png'),
+    Swampbg8: new ImageSource('images/moeras/swampbg-8.png'),
+    Swampbg82: new ImageSource('images/moeras/swampbg-82.png'),
+    Swampbg83: new ImageSource('images/moeras/swampbg-83.png'),
+    Swampbg9: new ImageSource('images/moeras/swampbg-9.png'),
+
+
     Capybara: new ImageSource('images/moeras/capyshrek-sprite.png'),
+    Capyfiona: new ImageSource('images/moeras/capyfiona.png'),
     Bluebush: new ImageSource('images/moeras/blauwe-bush.png'),
+    Grasblue: new ImageSource('images/moeras/grasblue.png'),
+    Lilypad: new ImageSource('images/moeras/lilypad.png'),
+    Purplerock: new ImageSource('images/moeras/rockpurp.png'),
     Food: new ImageSource('images/mine.png'),
-    SwampRose: new ImageSource('images/bones.png')
+    SwampRose: new ImageSource('images/moeras/swamprose.png')
 
 
 }

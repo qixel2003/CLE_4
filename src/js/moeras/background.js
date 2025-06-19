@@ -6,7 +6,7 @@ export class SwampBackground extends Actor {
         super({
             width: Resources.Swampbg.width,
             height: Resources.Swampbg.height,
-            collisionType: CollisionType.PreventCollision
+            collisionType: CollisionType.Passive
         });
     }
 
@@ -18,6 +18,7 @@ export class SwampBackground extends Actor {
         this.pos = new Vector(1240 / 2, 920 / 2)
         sprite.scale = new Vector(1.35, 1.35);
         this.graphics.use(sprite);
+        this.collider.set(Shape.Box(sprite.width, sprite.height));
         // this.anchor = Vector.Half;
         // this.pos = new Vector(engine.drawWidth / 2, engine.drawHeight / 2);
         // const sprite = Resources.Tropenbg.toSprite();
