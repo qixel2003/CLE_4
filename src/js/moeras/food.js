@@ -13,7 +13,7 @@ export class Food extends Actor {
 
         this.graphics.use(Resources.Food.toSprite())
         this.pos = pos.clone();
-        this.scale = new Vector(0.5, 0.5)
+        this.scale = new Vector(1, 1)
 
     }
 

@@ -81,7 +81,7 @@ const Resources = {
     Grasblue: new ImageSource('images/moeras/grasblue.png'),
     Lilypad: new ImageSource('images/moeras/lilypad.png'),
     Purplerock: new ImageSource('images/moeras/rockpurp.png'),
-    Food: new ImageSource('images/mine.png'),
+    Food: new ImageSource('images/moeras/melondrawing.png'),
     SwampRose: new ImageSource('images/moeras/swamprose.png')
 
 
