@@ -12,7 +12,7 @@ export class SwampRose extends Actor {
         
         this.graphics.use(Resources.SwampRose.toSprite())
         this.pos = new Vector(500, 300)
-        this.scale = new Vector(0.5, 0.5)
+        this.scale = new Vector(0.05, 0.05)
         // this.collider.set(Shape.Box(20, 10, Vector.Zero, new Vector(-30, 40)));
 
     }
