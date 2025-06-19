@@ -19,6 +19,12 @@ export class UI extends ScreenElement {
         super({ anchor: new Vector(0, 0) }); // anchor top-left
         this.player = player;
         this.hearts = [];
+
+         this.discoverySprites = [
+            { name: "capybara", discovered: false, spriteOff: Resources.Capyundiscover.toSprite(), spriteOn: Resources.Capydiscover.toSprite() },
+            { name: "monkey", discovered: true, spriteOff: Resources.Monkeyundiscover.toSprite(), spriteOn: Resources.MonkeyDiscover.toSprite() },
+            { name: "orchid", discovered: false, spriteOff: Resources.Orchidundiscover.toSprite(), spriteOn: Resources.Orchiddiscover.toSprite() },
+        ]
     }
 
     async onInitialize(engine) {
@@ -38,7 +44,7 @@ export class UI extends ScreenElement {
         this.heartEmpty.scale.setTo(0.15, 0.15);
 
         this.updateHearts(); // Initial render
-
+        this.showAnimalPortraits()
         
         
     
@@ -46,6 +52,7 @@ export class UI extends ScreenElement {
 
     onPreUpdate() {
         this.updateHearts();
+        this.showAnimalPortraits()
     }
 
     updateHearts() {
@@ -71,7 +78,17 @@ export class UI extends ScreenElement {
         }
     }
 
-    // showAnimalPortraits(){
-       
-    // }
+    showAnimalPortraits(){
+         for (let i = 0; i < this.discoverySprites.length; i++) {
+            let check = this.discoverySprites[i]
+            const discovery = new Actor({
+                pos: new Vector(50 + i * 70, 90), 
+                anchor: new Vector(0, 0)
+            });
+            discovery.graphics.use(check.discovered ? check.spriteOn : check.spriteOff);
+            discovery.z = 10;
+            this.addChild(discovery);
+        }
+    }
+    
 }

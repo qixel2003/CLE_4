@@ -41,11 +41,11 @@ const Resources = {
 
 
     //undiscovered icons animals
-    Capyundiscover: new ImageSource("images/capyshrek-bwicon.jpg"),
-    Monkeyundiscover: new ImageSource("images/monkeyiconbw.jpg"),
+    Capyundiscover: new ImageSource("images/capyshrekicon-bw.png"),
+    Monkeyundiscover: new ImageSource("images/monkeycaughticon-bw.png"),
 
     //undiscovered icons flowers
-    Orchidundiscover: new ImageSource("images/orchidbwicon.jpg"),
+    Orchidundiscover: new ImageSource("images/orchidicon.bw.png"),
 
     //player   
     Player: new ImageSource('images/player-sprite.png'),
