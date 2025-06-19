@@ -28,7 +28,7 @@ export class TropenScene extends Scene {
 
     onActivate(ctx, engine, event) {
         this.clear();
-        
+
         const tropenbg = new TropenBackground({ pos: new Vector(0, 0) });
         this.add(tropenbg)
 
@@ -39,7 +39,7 @@ export class TropenScene extends Scene {
         // });
         // this.add(bubble);
 
-        
+
         let tropenDoor = new TropenDoor();
         this.add(tropenDoor)
 
@@ -93,7 +93,7 @@ export class TropenScene extends Scene {
 
 
 
-   positionObstacle(ObstacleClass, number, positions) {
+    positionObstacle(ObstacleClass, number, positions) {
         const obstacleCount = number
         const width = 1240
         const height = 920
@@ -116,26 +116,37 @@ export class TropenScene extends Scene {
         }
 
         let placed = 0;
+        // ...existing code...
         while (placed < obstacleCount) {
-            const x = margin + Math.random() * (width - 2 * margin)
-            const y = margin + Math.random() * (height - 2 * margin)
+            let x = margin + Math.random() * (width - 2 * margin);
+            let y = margin + Math.random() * (height - 2 * margin);
+
+            // Check if any part of the obstacle would overlap the forbidden zone
+            if (
+                x + margin > 300 && x - margin < 700 &&
+                y + margin > 250 && y - margin < 600
+            ) {
+                continue;
+            }
+
             if (isFarEnough(x, y)) {
-                let obstacle = new ObstacleClass()
-                obstacle.pos = new Vector(x, y)
-                this.add(obstacle)
+                let obstacle = new ObstacleClass();
+                obstacle.pos = new Vector(x, y);
+                this.add(obstacle);
+                console.log(x,y)
                 positions.push({ x: x, y: y });
                 placed++;
             }
         }
-
+        // ...existing code...
     }
-
-
-    // createPlayer() {
-    //     const player = new Player()
-    //     this.add(player)
-    //     this.add(player)
-    //     console.log("spawn");
-    //     console.log(player);
-    // }
 }
+
+// createPlayer() {
+//     const player = new Player()
+//     this.add(player)
+//     this.add(player)
+//     console.log("spawn");
+//     console.log(player);
+// }
+
