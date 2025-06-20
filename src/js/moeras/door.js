@@ -4,7 +4,7 @@ import { Player } from "../player.js";
 
 export class SwampDoor extends Actor {
     constructor(engine) {
-        super({ width: Resources.SwampDoor.width, height: Resources.SwampDoor.height, collisionType: CollisionType.Fixed })
+        super({ width: Resources.SwampDoor.width, height: Resources.SwampDoor.height, collisionType: CollisionType.Passive })
     }
 
     onInitialize(engine, event) {

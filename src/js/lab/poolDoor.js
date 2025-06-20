@@ -4,7 +4,7 @@ import { Player } from "../player.js";
 
 export class PoolDoor extends Actor {
     constructor(engine) {
-        super({ width: Resources.PoolDoor.width, height: Resources.PoolDoor.height, collisionType: CollisionType.Fixed })
+        super({ width: Resources.PoolDoor.width, height: Resources.PoolDoor.height, collisionType: CollisionType.Passive })
     }
 
     onInitialize(engine) {

@@ -4,7 +4,7 @@ import { Player } from "../player.js";
 
 export class SavanneDoor extends Actor {
     constructor(engine) {
-        super({ width: Resources.SavanneDoor.width, height: Resources.SavanneDoor.height, collisionType: CollisionType.Fixed })
+        super({ width: Resources.SavanneDoor.width, height: Resources.SavanneDoor.height, collisionType: CollisionType.Passive })
     }
 
     onInitialize(engine) {
