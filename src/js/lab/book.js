@@ -1,18 +1,20 @@
-import { Actor, CollisionType, Color, Font, Graphic, Label, Rectangle, Vector } from "excalibur";
+import { Actor, CollisionType, Color, Font, Graphic, Label, Rectangle, Shape, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 import { Player } from "../player.js";
 
 export class LabBook extends Actor {
     constructor() {
-        super({ width: Resources.Bubble.width, height: Resources.Bubble.height, collisionType: CollisionType.Fixed });
+        super({ width: Resources.Book2.width, height: Resources.Book2.height, collisionType: CollisionType.Fixed });
 
-        this.graphics.use(Resources.Bubble.toSprite());
-        this.pos = new Vector(600, 300);
+        this.graphics.use(Resources.Book2.toSprite());
+        this.scale = new Vector(0.075, 0.075)
+        this.collider.set(Shape.Box(900, 1200));
+        this.pos = new Vector(600, 460);
         this.pages = [
-            "Je bent een dokter die een infectie moet stoppen en geïnfecteerde dieren moet genezen.\nDit doe je door geïnfecteerde dieren te verslaan en planten te verzamelen\nom een medicijn te maken.\nJe start in een laboratorium, de kamers leiden naar andere gebieden.\nJe vangt de dieren op verschillende manieren: springen, gooien, sluipen.\nJe verliest een leven wanneer je iets verkeerd vangt.\nAls je “dood” bent verlies je progressie in de kamer en moet je vanaf het begin beginnen.\nZorg ervoor dat je alle planten en dieren verzamelt om in het lab het medicijn te maken.",
-            "Controls:\nDoor op ? te klikken ga je naar voren.\nDoor op ? te klikken ga je naar achteren.\nDoor op ? te klikken ga je naar links.\nDoor op ? te klikken ga je naar rechts.",
-            "Vangmethodes:\nDoor op ? te klikken gooi je een net.\nDoor op ? te klikken gooi je een steen.\nDoor eerst de plant te pakken kan je een dier lokken.\nDoor op ? te klikken spring je op een dier.",
-            "Hints voor de bijpassende vangmethodes:\nHet dier dat het hoogst springt moet met een net worden gevangen.\nHet dier dat agressief is moet je aanvallen.\nHet dier dat ?\nOp het dier dat het verst glijdt moet je springen."
+            "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte verslaan en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: springen, gooien, sluipen.\n\nJe verliest een leven wanneer je iets\nverkeerd vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het begin\nbeginnen.",
+            "Controls:\n\nDoor op ? te klikken ga je naar voren.\n\nDoor op ? te klikken ga je naar\nachteren.\n\nDoor op ? te klikken ga je naar links.\n\nDoor op ? te klikken ga je naar rechts.",
+            "Vangmethodes:\n\nDoor op ? te klikken gooi je een net.\n\nDoor op ? te klikken gooi je een steen.\n\nDoor eerst de plant te pakken kan je\neen dier lokken.\n\nDoor op ? te klikken spring je op een\ndier.",
+            "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat het hoogst springt moet\nmet een net worden gevangen.\n\nHet dier dat agressief is moet je\naanvallen.\n\nHet dier dat ?\n\nOp het dier dat het verst glijdt moet je\nspringen."
         ];
         this.currentPage = 0;
         this.popup = null;
@@ -21,8 +23,13 @@ export class LabBook extends Actor {
 
     onInitialize(engine) {
         this.on("collisionstart", (evt) => {
-            if (evt.other.owner instanceof Player && !this.popup) {
-                this.showPopup(engine);
+            if (evt.other.owner instanceof Player) {
+                evt.other.owner.isNearBook = true;
+            }
+        });
+        this.on("collisionend", (evt) => {
+            if (evt.other.owner instanceof Player) {
+                evt.other.owner.isNearBook = false;
             }
         });
     }
@@ -47,21 +54,30 @@ export class LabBook extends Actor {
         engine.currentScene.add(this.popupBg);
 
         // Tekst
-        this.popup = new Label({
-            text: this.pages[this.currentPage],
-            pos: new Vector(centerX - 390, centerY - 80),
-            font: new Font({ size: 20, color: Color.Black }),
+        this.popupLeft = new Label({
+            text: this.pages[this.currentPage * 2] || "",
+            pos: new Vector(centerX - 300, centerY - 190),
+            font: new Font({ size: 17, color: Color.Black }),
             z: 9999,
             anchor: Vector.Half
         });
-        engine.currentScene.add(this.popup);
+        engine.currentScene.add(this.popupLeft);
+
+        this.popupRight = new Label({
+            text: this.pages[this.currentPage * 2 + 1] || "",
+            pos: new Vector(centerX + 25, centerY - 190),
+            font: new Font({ size: 17, color: Color.Black }),
+            z: 9999,
+            anchor: Vector.Half
+        });
+        engine.currentScene.add(this.popupRight);
 
         // Kruisje 
         const crossSize = 40;
         this.closeBtn = new Label({
             text: "✕",
-            pos: new Vector(centerX - popupWidth / 2.5 + crossSize, centerY - popupHeight / 1.4 + crossSize),
-            font: new Font({ size: crossSize, color: Color.Black }),
+            pos: new Vector(centerX - popupWidth / 2.2 + crossSize, centerY - popupHeight / 1.1 + crossSize),
+            font: new Font({ size: 30, color: Color.Black }),
             z: 10000,
             anchor: Vector.Half
         });
@@ -77,7 +93,7 @@ export class LabBook extends Actor {
         // Linkerpijl
         this.leftArrow = new Label({
             text: "<",
-            pos: new Vector(centerX - popupWidth / 2.5 + arrowSize, arrowY),
+            pos: new Vector(centerX - popupWidth / 2.5 + arrowSize, arrowY + 35),
             font: new Font({ size: arrowSize, color: this.currentPage > 0 ? Color.Black : Color.Gray }),
             z: 10000,
             anchor: Vector.Half
@@ -86,7 +102,8 @@ export class LabBook extends Actor {
         this.leftArrow.on('pointerup', () => {
             if (this.currentPage > 0) {
                 this.currentPage--;
-                this.popup.text = this.pages[this.currentPage];
+                this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+                this.popupRight.text = this.pages[this.currentPage * 2 + 1] || "";
                 this.updateArrows();
             }
         });
@@ -94,28 +111,31 @@ export class LabBook extends Actor {
         // Rechterpijl
         this.rightArrow = new Label({
             text: ">",
-            pos: new Vector(centerX + popupWidth / 2.65 - arrowSize, arrowY),
+            pos: new Vector(centerX + popupWidth / 2.65 - arrowSize, arrowY + 35),
             font: new Font({ size: arrowSize, color: this.currentPage < this.pages.length - 1 ? Color.Black : Color.Gray }),
             z: 10000,
             anchor: Vector.Half
         });
         engine.currentScene.add(this.rightArrow);
         this.rightArrow.on('pointerup', () => {
-            if (this.currentPage < this.pages.length - 1) {
+            if (this.currentPage < Math.floor(this.pages.length / 2) - 1) {
                 this.currentPage++;
-                this.popup.text = this.pages[this.currentPage];
+                this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+                this.popupRight.text = this.pages[this.currentPage * 2 + 1] || "";
                 this.updateArrows();
             }
         });
 
         this._onKeyPress = (e) => {
-            if ((e.key === 'ArrowRight') && this.currentPage < this.pages.length - 1) {
+            if ((e.key === 'ArrowRight') && this.currentPage < Math.floor(this.pages.length / 2) - 1) {
                 this.currentPage++;
-                this.popup.text = this.pages[this.currentPage];
+                this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+                this.popupRight.text = this.pages[this.currentPage * 2 + 1] || "";
                 this.updateArrows();
             } else if ((e.key === 'ArrowLeft') && this.currentPage > 0) {
                 this.currentPage--;
-                this.popup.text = this.pages[this.currentPage];
+                this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+                this.popupRight.text = this.pages[this.currentPage * 2 + 1] || "";
                 this.updateArrows();
             } else if (e.key === 'Escape') {
                 this.closePopup(engine);
@@ -128,7 +148,7 @@ export class LabBook extends Actor {
             this.leftArrow.font.color = this.currentPage > 0 ? Color.Black : Color.Gray;
         }
         if (this.rightArrow) {
-            this.rightArrow.font.color = this.currentPage < this.pages.length - 1 ? Color.Black : Color.Gray;
+            this.rightArrow.font.color = this.currentPage < Math.floor(this.pages.length / 2) - 1 ? Color.Black : Color.Gray;
         }
     }
     closePopup(engine) {
@@ -152,6 +172,15 @@ export class LabBook extends Actor {
         if (this.rightArrow) {
             this.rightArrow.kill();
             this.rightArrow = null;
+        }
+
+        if (this.popupLeft) {
+            this.popupLeft.kill();
+            this.popupLeft = null;
+        }
+        if (this.popupRight) {
+            this.popupRight.kill();
+            this.popupRight = null;
         }
         engine.input.keyboard.off('press', this._onKeyPress);
     }

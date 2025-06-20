@@ -20,6 +20,12 @@ import { LabBook } from "./lab/book.js";
 
 
 export class MainScene extends Scene {
+    player = null;
+    constructor(player) {
+        super();
+        this.player = player;
+    }
+
     onActivate(ctx) {
         this.clear();
 
@@ -68,23 +74,16 @@ export class MainScene extends Scene {
         let labBook = new LabBook();
         this.add(labBook)
 
-        this.createPlayer();
-    }
+        this.add(this.player);
 
-    createPlayer() {
-        const player = new Player()
-        this.add(player)
         const minX = 0;
         const maxX = 1240;
         const minY = 0;
         const maxY = 920;
-
-        this.camera.strategy.lockToActor(player);
+        this.camera.strategy.lockToActor(this.player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
         this.camera.zoom = 1.35;
-        console.log("spawn");
-        const playerUI = new UI(player)
+        const playerUI = new UI(this.player)
         this.add(playerUI)
     }
-
 }

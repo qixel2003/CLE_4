@@ -29,6 +29,9 @@ export class PoolDoor extends Actor {
         engine.input.keyboard.on('press', (evt) => {
             if (evt.key === 'Enter' && bijDeur) {
                 engine.goToScene('game');
+                setTimeout(() => {
+                    this.canUseDoor = true;
+                }, 2000);
             }
         });
     }

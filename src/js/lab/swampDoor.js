@@ -1,5 +1,6 @@
 import { Actor, CollisionType, Scene, Shape, Vector } from "excalibur";
 import { Resources } from "../resources.js";
+import { Player } from "../player.js";
 
 export class SwampDoor extends Actor {
     constructor(engine) {
@@ -11,11 +12,17 @@ export class SwampDoor extends Actor {
         this.pos = new Vector(300, 90);
         this.scale = new Vector(0.60, 0.60);
 
-        this.on("collisionstart", () => {
-            setTimeout(() => {
-                engine.goToScene('moeras');
-            }, 2);
-        }
-        );
+        this.on('collisionstart', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                evt.other.owner.isNearDoor = true;
+                evt.other.owner.doorTargetScene = 'moeras';
+            }
+        });
+        this.on('collisionend', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                evt.other.owner.isNearDoor = false;
+                evt.other.owner.doorTargetScene = null;
+            }
+        });
     }
 }

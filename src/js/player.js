@@ -5,8 +5,12 @@ import { Orchid } from './tropen/flower.js'
 import { Net } from './tropen/net.js'
 import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
+import { LabBook } from "./lab/book.js"
 
 export class Player extends Actor {
+    isNearDoor = false;
+    doorTargetScene = null;
+    isNearBook = false;
 
     flowerCount;
     health;
@@ -24,6 +28,7 @@ export class Player extends Actor {
 
         this.scale = new Vector(0.4, 0.4);
         this.pos = new Vector(500, 300);
+        this.z = 1;
 
         this.collider.set(Shape.Box(130, 200));
         this.collider.set(
@@ -80,6 +85,24 @@ export class Player extends Actor {
             xspeed = 300;
             this.graphics.use('runright');
             animSet = true;
+        }
+
+        if (engine.input.keyboard.wasPressed(Keys.Enter) && this.isNearDoor && this.doorTargetScene) {
+            engine.goToScene(this.doorTargetScene);
+            setTimeout(() => {
+                this.canUseDoor = true;
+            }, 2000);
+        }
+
+        if (engine.input.keyboard.wasPressed(Keys.Enter) && this.isNearBook) {
+            const book = engine.currentScene.actors.find(a => a instanceof LabBook);
+            if (book) {
+                if (!book.popupBg) {
+                    book.showPopup(engine);
+                } else {
+                    book.closePopup(engine);
+                }
+            }
         }
 
         if (kb.wasPressed(Keys.Right)) this.catch();
@@ -160,14 +183,14 @@ export class Player extends Actor {
             this.gameOver();
         }
     }
-    
 
 
-onInitialize(engine) {
-    this.on('collisionstart', (event) => this.hitMonkey(event));
 
-    this.on('collisionstart', (event) => this.hitFlower(event));
-    this.on('collisionend', (event) => this.leaveFlower(event));
+    onInitialize(engine) {
+        this.on('collisionstart', (event) => this.hitMonkey(event));
+
+        this.on('collisionstart', (event) => this.hitFlower(event));
+        this.on('collisionend', (event) => this.leaveFlower(event));
     }
 
 
@@ -204,17 +227,17 @@ onInitialize(engine) {
         }
 
     }
-        
 
-    
+
+
     leaveFlower(event) {
         if (event.other.owner === this.nearbyFlower) {
             this.nearbyFlower = null;
             console.log("Moved away from the flower");
         }
     }
-        
-                
+
+
 
 
     jump() {
@@ -244,10 +267,10 @@ onInitialize(engine) {
     }
 
     layFood() {
-         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
-        const food = new Food(this.pos.clone());
-        this.scene.add(food);
-         }
+        if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
+            const food = new Food(this.pos.clone());
+            this.scene.add(food);
+        }
     }
 
 
@@ -264,7 +287,7 @@ onInitialize(engine) {
         console.log("Picked up flower! Total:", this.flowerCount);
         this.nearbyFlower = null;
     }
-    
+
 
     takeDamage() {
         this.health -= 1;
