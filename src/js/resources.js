@@ -25,7 +25,6 @@ const Resources = {
     Mine: new ImageSource('images/mine.png'),
     Bubble: new ImageSource('images/bubble.png'),
     Fish: new ImageSource('images/fish.png'),
-    Net: new ImageSource('images/tropen/grijs.png'),
     Tree: new ImageSource('images/tropen/palmboom.png'),
     Hartred: new ImageSource('images/hartred.png'),
     Hartgrey: new ImageSource('images/hartgrey.png'),

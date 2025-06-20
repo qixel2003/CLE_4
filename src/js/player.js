@@ -272,20 +272,20 @@ export class Player extends Actor {
 
 
         // Damage from enemy collision
-        if (this.isCollidingWithEnemy && Date.now() - this.lastHitTime >= 1000) {
-            this.health -= this.collidingEnemy.attack;
-            this.lastHitTime = Date.now();
-            console.log(`Player health: ${this.health}`);
-        }
+        // if (this.isCollidingWithEnemy && Date.now() - this.lastHitTime >= 1000) {
+        //     this.health -= this.collidingEnemy.attack;
+        //     this.lastHitTime = Date.now();
+        //     console.log(`Player health: ${this.health}`);
+        // }
 
-        // Death check
-        if (this.health <= 0) {
-            this.gameOver();
-        }
+        // // Death check
+        // if (this.health <= 0) {
+        //     this.gameOver();
+        // }
 
-        if (sessionStorage.key === "flower") {
-            console.log("got an orchid")
-        }
+        // if (sessionStorage.key === "flower") {
+        //     console.log("got an orchid")
+        // }
 
     }
 
@@ -308,9 +308,9 @@ export class Player extends Actor {
                 sessionStorage.removeItem("flower")
                 console.log(sessionStorage.getItem("flower"))
 
-                if (this.scene) {
-                    this.scene.positionObstacle(Orchid, 1, this.scene.obstaclePositions);
-                }
+                // if (this.scene) {
+                //     this.scene.positionObstacle(Orchid, 1, this.scene.obstaclePositions);
+                // }
             }
         }
     }
