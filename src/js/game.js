@@ -1,12 +1,15 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Player } from './player.js'
+import { BoundingBox } from "excalibur"
 import { PoolScene } from './poolgebied/pool.js'
 import { SavanneScene } from './savanne/savanne.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
-import { Player } from './player.js'
 import { MainScene } from './mainscene.js'
+import { LabBackground } from './lab/background.js'
+
 
 export class Game extends Engine {
     player;
@@ -20,6 +23,7 @@ export class Game extends Engine {
         })
         this.player = new Player();
         this.start(ResourceLoader).then(() => this.startGame())
+
     }
 
     startGame() {
@@ -32,4 +36,5 @@ export class Game extends Engine {
         this.goToScene('game')
     }
 }
+
 new Game()

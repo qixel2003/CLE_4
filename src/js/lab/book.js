@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Color, Font, Graphic, Label, Rectangle, Shape, Vector } from "excalibur";
+import { Actor, CollisionType, Color, Font, Graphic, Label, Rectangle, Buttons, Shape, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 import { Player } from "../player.js";
 
@@ -19,6 +19,14 @@ export class LabBook extends Actor {
         this.currentPage = 0;
         this.popup = null;
         this._onKeyPress = null;
+
+        this.lastInputTime = {
+            dpadLeft: 0,
+            dpadRight: 0,
+            face4: 0
+        };
+        this.inputCooldown = 250; // in milliseconds
+
     }
 
     onInitialize(engine) {
@@ -33,6 +41,50 @@ export class LabBook extends Actor {
             }
         });
     }
+
+    onPreUpdate(engine) {
+        if (!this.popup) return;
+
+        const gamepad = engine.input.gamepads.at(0);
+        if (!gamepad) return;
+
+        const now = Date.now();
+
+        // D-pad right to go forward
+        if (
+            gamepad.isButtonPressed(Buttons.DpadRight) &&
+            now - this.lastInputTime.dpadRight > this.inputCooldown &&
+            this.currentPage < this.pages.length - 1
+        ) {
+            this.currentPage++;
+            this.popup.text = this.pages[this.currentPage];
+            this.updateArrows();
+            this.lastInputTime.dpadRight = now;
+        }
+
+        // D-pad left to go backward
+        if (
+            gamepad.isButtonPressed(Buttons.DpadLeft) &&
+            now - this.lastInputTime.dpadLeft > this.inputCooldown &&
+            this.currentPage > 0
+        ) {
+            this.currentPage--;
+            this.popup.text = this.pages[this.currentPage];
+            this.updateArrows();
+            this.lastInputTime.dpadLeft = now;
+        }
+
+        // Face4 to close
+        if (
+            gamepad.isButtonPressed(Buttons.Face4) &&
+            now - this.lastInputTime.face4 > this.inputCooldown
+        ) {
+            this.closePopup(engine);
+            this.lastInputTime.face4 = now;
+        }
+    }
+
+
 
     showPopup(engine) {
         const popupWidth = 820;

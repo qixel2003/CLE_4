@@ -5,6 +5,18 @@ import { Orchid } from './tropen/flower.js'
 import { Net } from './tropen/net.js'
 import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
+import { SwampBackground } from './moeras/background.js'
+import { SwampBackground1 } from "./moeras/swampbg1.js";
+import { SwampBackground2 } from "./moeras/swampbg2.js";
+import { SwampBackground3 } from "./moeras/swampbg3.js";
+import { SwampBackground4 } from "./moeras/swampbg4.js";
+import { SwampBackground5 } from "./moeras/swampbg5.js";
+import { SwampBackground6 } from "./moeras/swampbg6.js";
+import { SwampBackground7 } from "./moeras/swampbg7.js";
+import { SwampBackground8 } from "./moeras/swampbg8.js";
+import { SwampBackground82 } from "./moeras/swampbg82.js";
+import { SwampBackground83 } from "./moeras/swampbg83.js";
+import { SwampBackground9 } from "./moeras/swampbg9.js";
 import { LabBook } from "./lab/book.js"
 
 export class Player extends Actor {
@@ -14,6 +26,7 @@ export class Player extends Actor {
 
     flowerCount;
     health;
+    canLayFood
 
 
     constructor(health = 3) {
@@ -51,20 +64,102 @@ export class Player extends Actor {
         this.graphics.add("runright", runRight);
         this.graphics.add("runup", runUp);
         this.graphics.add("rundown", runDown);
-        this.graphics.use(idle); // <-- Now it's defined
+        this.graphics.use(idle);
 
         this.nearbyFlower = null;
         this.flowerCount = 0
+
+        this.canlayFood = true;
+        // this.Position = true
+        // console.log(this.Position)
+        // this.fastContacts = 0;      // In de constructor
+        // this.fastOnSwamp = true
+        // if (this.scene && this.scene.name === "moeras") {
+        // this.fastOnSwamp = false;   // In de constructor
+        // }
+
+        // console.log(this.waterPosition)
     }
 
     onPreUpdate(engine) {
-        let xspeed = 0;
-        let yspeed = 0;
-        const speed = 300;
-        let kb = engine.input.keyboard;
 
         let animSet = false;
+        let speed = 300; // Langzamer in water, normaal op land
+        let xspeed = 0;
+        let yspeed = 0;
+        let kb = engine.input.keyboard;
 
+
+        // if (this.scene && this.scene.name === "moeras") {
+        //     let isOnSwamp = false;
+        //     if (this.scene && this.scene.swampAreas) {
+        //         for (const area of this.scene.swampAreas) {
+        //             // Simpele rechthoek-overlap check:
+        //             if (
+        //                 this.pos.x + this.width / 2 > area.pos.x - area.width / 2 &&
+        //                 this.pos.x - this.width / 2 < area.pos.x + area.width / 2 &&
+        //                 this.pos.y + this.height / 2 > area.pos.y - area.height / 2 &&
+        //                 this.pos.y - this.height / 2 < area.pos.y + area.height / 2
+        //             ) {
+        //                 isOnSwamp = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     this.fastOnSwamp = isOnSwamp;
+
+        // }
+
+
+
+        // if (this.scene && this.scene.name === "moeras") {
+        //     speed = this.fastOnSwamp ? 300 : 150;
+        // }
+
+        // if (this.fastOnSwamp === false) {
+        //     speed = 150; // Langzamer in water, normaal op land
+        //     xspeed = 0;
+        //     yspeed = 0;
+
+        //     // Gebruik deze speed voor je beweging:
+        //     if (kb.isHeld(Keys.W)) {
+        //         yspeed = -150;
+        //         this.graphics.use('runup');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.S)) {
+        //         yspeed = 150;
+        //         this.graphics.use('rundown');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.A)) {
+        //         xspeed = -150;
+        //         this.graphics.use('runleft');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.D)) {
+        //         xspeed = 150;
+        //         this.graphics.use('runright');
+        //         animSet = true;
+        //     }
+
+        //     if (kb.wasPressed(Keys.Right)) this.catch();
+        //     if (kb.wasPressed(Keys.Q)) this.interact();
+        //     if (kb.wasPressed(Keys.Up)) this.layFood();
+        // }
+
+
+
+
+
+        // if (this.fastOnSwamp === true) {
+
+        //     xspeed = 0;
+        //     yspeed = 0;
+        //     speed = 300;
+        //     kb = engine.input.keyboard;
+
+        animSet = false;
         // --- Keyboard movement ---
         if (kb.isHeld(Keys.W)) {
             yspeed = -300;
@@ -86,7 +181,6 @@ export class Player extends Actor {
             this.graphics.use('runright');
             animSet = true;
         }
-
         if (engine.input.keyboard.wasPressed(Keys.Enter) && this.isNearDoor && this.doorTargetScene) {
             engine.goToScene(this.doorTargetScene);
             setTimeout(() => {
@@ -108,6 +202,12 @@ export class Player extends Actor {
         if (kb.wasPressed(Keys.Right)) this.catch();
         if (kb.wasPressed(Keys.Q)) this.interact();
         if (kb.wasPressed(Keys.Up)) this.layFood();
+        // }
+
+
+
+        // console.log("fastContacts:", this.fastContacts, "fastOnSwamp:", this.fastOnSwamp);
+
 
         // --- Gamepad support ---
         const gamepad = engine.input.gamepads.at(0);
@@ -182,7 +282,13 @@ export class Player extends Actor {
         if (this.health <= 0) {
             this.gameOver();
         }
+
+        if (sessionStorage.key === "flower") {
+            console.log("got an orchid")
+        }
+
     }
+
 
 
 
@@ -199,6 +305,8 @@ export class Player extends Actor {
             if (this.flowerCount > 0) {
                 this.flowerCount -= 1
                 console.log("lost flower")
+                sessionStorage.removeItem("flower")
+                console.log(sessionStorage.getItem("flower"))
 
                 if (this.scene) {
                     this.scene.positionObstacle(Orchid, 1, this.scene.obstaclePositions);
@@ -210,8 +318,12 @@ export class Player extends Actor {
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
-            this.nearbyFlower = event.other.owner;
-            console.log("Standing near a flower");
+            sessionStorage.setItem("flower", "orchid")
+            console.log("got Orchid")
+            console.log(sessionStorage.getItem("flower"))
+            event.other.owner.kill()
+            this.flowerCount += 1
+
         }
 
         if (event.other.owner instanceof SwampRose) {
@@ -219,12 +331,10 @@ export class Player extends Actor {
             event.other.owner.kill()
             this.flowerCount += 1
 
-            sessionStorage.setItem("orchid", "no")
+
         }
 
-        if (sessionStorage.key === "orchid") {
-            console.log("got an orchid")
-        }
+
 
     }
 
@@ -270,6 +380,7 @@ export class Player extends Actor {
         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
+            this.canLayFood = false
         }
     }
 
