@@ -4,7 +4,6 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { BoundingBox } from "excalibur"
 import { PoolScene } from './poolgebied/pool.js'
-import { SavanneScene } from './savanne/savanne.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
 import { MainScene } from './mainscene.js'
@@ -28,7 +27,6 @@ export class Game extends Engine {
         console.log("start de game!")
         this.add('game', new MainScene(this.player))
         this.add('pool', new PoolScene())
-        this.add('savanne', new SavanneScene())
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
         this.goToScene('game')
