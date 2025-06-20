@@ -8,8 +8,6 @@ import { SavanneScene } from './savanne/savanne.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
 import { MainScene } from './mainscene.js'
-import { LabBackground } from './lab/background.js'
-
 
 export class Game extends Engine {
     player;
