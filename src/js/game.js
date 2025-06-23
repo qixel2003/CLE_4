@@ -7,9 +7,12 @@ import { PoolScene } from './poolgebied/pool.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
 import { MainScene } from './mainscene.js'
+import { StartScene } from './startScene.js'
+
 
 export class Game extends Engine {
     player;
+
 
     constructor() {
         super({
@@ -31,13 +34,17 @@ export class Game extends Engine {
 
 
         console.log("start de game!")
+        this.add('start', new StartScene());
         this.add('game', new MainScene(this.player))
         this.add('pool', new PoolScene())
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
-        this.goToScene('game')
+        // this.goToScene('game')
+        // this.goToScene('start');
+        document.fonts.ready.then(() => {
+            this.goToScene('start');
+        });
 
-        
     }
 }
 
