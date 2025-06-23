@@ -23,11 +23,10 @@ export class Player extends Actor {
     isNearDoor = false;
     doorTargetScene = null;
     isNearBook = false;
-
     flowerCount;
     health;
-    canLayFood
-    flowercollection
+    canLayFood;
+    flowercollection;
 
 
     constructor(health = 3) {
@@ -39,6 +38,11 @@ export class Player extends Actor {
 
         this.health = health;
         this.startHealth = health;
+        this.baseSpeed = 300;
+        this.statusEffect = null;
+        this.statusSpeedMultiplier = 1;
+        this.statusExpireTime = 0;
+
 
         this.scale = new Vector(0.4, 0.4);
         this.pos = new Vector(500, 300);
@@ -88,10 +92,18 @@ export class Player extends Actor {
     onPreUpdate(engine) {
 
         let animSet = false;
-        let speed = 300; // Langzamer in water, normaal op land
         let xspeed = 0;
         let yspeed = 0;
         let kb = engine.input.keyboard;
+        let speed = this.baseSpeed * this.statusSpeedMultiplier;
+
+        // Expire status effect
+        if (this.statusEffect && Date.now() > this.statusExpireTime) {
+            console.log(`Status ${this.statusEffect} expired`);
+            this.statusEffect = null;
+            this.statusSpeedMultiplier = 1;
+        }
+
 
 
         // if (this.scene && this.scene.name === "moeras") {
@@ -302,6 +314,7 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
+        
     }
 
 
@@ -402,6 +415,27 @@ export class Player extends Actor {
         console.log("Picked up flower! Total:", this.flowerCount);
         this.nearbyFlower = null;
     }
+
+    applyStatus(statusName, duration = 3000) {
+        this.statusEffect = statusName;
+        this.statusExpireTime = Date.now() + duration;
+        console.log("start");
+
+        switch (statusName) {
+            case "slowed":
+                this.statusSpeedMultiplier = 0.5; // Half speed
+                break;
+            case "fast":
+                this.statusSpeedMultiplier = 1.5; // Faster than normal
+                break;
+            default:
+                this.statusSpeedMultiplier = 1;
+                break;
+        }
+
+        console.log(`Applied status: ${statusName}`);
+    }
+    
 
 
     takeDamage() {

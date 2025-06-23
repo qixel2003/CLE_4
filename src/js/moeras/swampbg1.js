@@ -1,5 +1,7 @@
 import { Actor, Engine, Vector, CollisionType, Shape, CompositeCollider } from "excalibur"
 import { Resources } from "../resources.js";
+import { Player } from '../player.js'
+
 
 export class SwampBackground1 extends Actor {
     constructor() {
@@ -24,6 +26,11 @@ export class SwampBackground1 extends Actor {
         this.collider.set(Shape.Box(440, 140, Vector.Zero, new Vector(-650, -475)));
         
 
-
+        this.on('collisionstart', (evt) => {
+            const player = evt.other;
+            if (player instanceof Player) {
+                player.applyStatus("slowed", 5000); // 5 seconds of slow
+            }
+        });
     }
 }
