@@ -1,5 +1,6 @@
 import { Actor, Engine, Vector, CollisionType, Shape, CompositeCollider } from "excalibur"
 import { Resources } from "../resources.js";
+import { Player } from '../player.js'
 
 export class SwampBackground8 extends Actor {
     constructor() {
