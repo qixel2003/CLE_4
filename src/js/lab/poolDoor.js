@@ -10,7 +10,7 @@ export class PoolDoor extends Actor {
     onInitialize(engine) {
         this.graphics.use(Resources.PoolDoor.toSprite());
         this.pos = new Vector(800, 90);
-        this.scale = new Vector(1.25, 1.25);
+        this.scale = new Vector(0.60, 0.60);
 
         this.on('collisionstart', (evt) => {
             if (evt.other.owner instanceof Player) {

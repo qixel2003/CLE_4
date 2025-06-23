@@ -39,12 +39,8 @@ export class Game extends Engine {
         this.add('pool', new PoolScene())
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
-        // this.goToScene('game')
+        this.goToScene('game')
         // this.goToScene('start');
-        document.fonts.ready.then(() => {
-            this.goToScene('start');
-        });
-
     }
 }
 

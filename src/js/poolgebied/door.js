@@ -4,13 +4,13 @@ import { Player } from "../player.js";
 
 export class PoolDoor extends Actor {
     constructor(engine) {
-        super({ width: Resources.TropenDoor.width, height: Resources.TropenDoor.height, collisionType: CollisionType.Passive })
+        super({ width: Resources.PoolDoor.width, height: Resources.PoolDoor.height, collisionType: CollisionType.Passive })
     }
 
     onInitialize(engine, event) {
-        this.graphics.use(Resources.TropenDoor.toSprite());
+        this.graphics.use(Resources.PoolDoor.toSprite());
         this.pos = new Vector(500, 450);
-        this.scale = new Vector(0.87, 0.87);
+        this.scale = new Vector(0.60, 0.60);
 
         let bijDeur = false;
 

@@ -16,8 +16,7 @@ const Resources = {
 
     //lab deuren
     SwampDoor: new ImageSource('images/lab/moerasdeur.png'),
-    PoolDoor: new ImageSource('images/lab/deurbasic.png'),
-    SavanneDoor: new ImageSource('images/lab/deurbasic.png'),
+    PoolDoor: new ImageSource('images/lab/pooldeur.png'),
     TropenDoor: new ImageSource('images/lab/tropen-door.png'),
 
     //placeholders
