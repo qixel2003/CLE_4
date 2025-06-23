@@ -22,7 +22,14 @@ export class SwampBackground3 extends Actor {
 
 
         this.collider.set(Shape.Box(280, 250, Vector.Zero, new Vector(230, -400)));
-        
+        // Apply status effect to the player
+            this.on('collisionstart', (evt) => {
+                const player = engine.currentScene.actors.find(a => a instanceof Player);
+                if (player) {
+                    player.applyStatus("slowed", 5000);
+                }
+
+            });
 
     }
 }

@@ -22,7 +22,13 @@ export class SwampBackground9 extends Actor {
 
 
         this.collider.set(Shape.Box(100, 30, Vector.Zero, new Vector(450, 380)));
-        
+        this.on('collisionstart', (evt) => {
+            const player = engine.currentScene.actors.find(a => a instanceof Player);
+            if (player) {
+                player.applyStatus("slowed", 5000);
+            }
+
+        });
 
     }
 }
