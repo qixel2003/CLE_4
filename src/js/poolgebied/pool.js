@@ -7,7 +7,7 @@ import { PoolBorderRight } from "./poolBorderRight.js";
 import { PoolBorderTop } from "./poolBorderTop.js";
 import { PoolBorderBottom } from "./poolBorderBottom.js";
 import { PoolBackground } from "./background.js";
-// import { SnowMountain } from "./snowMountain.js";
+import { SnowMountain } from "./snowMountain.js";
 
 
 
@@ -36,9 +36,12 @@ export class PoolScene extends Scene {
         this.width = new Vector(30, 0)
         this.height = new Vector(30, 0)
 
+        this.obstaclePositions = []
+
         this.add(player)
 
-        // this.positionObstacle(SnowMountain, 8, this.obstaclePositions)
+
+        this.positionObstacle(SnowMountain, 8, this.obstaclePositions)
 
 
         const minX = 0;
