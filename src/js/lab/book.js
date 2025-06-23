@@ -4,7 +4,7 @@ import { Player } from "../player.js";
 
 export class LabBook extends Actor {
     constructor() {
-        super({ width: Resources.Book2.width, height: Resources.Book2.height, collisionType: CollisionType.Fixed });
+        super({ width: Resources.Book2.width, height: Resources.Book2.height, collisionType: CollisionType.Passive });
 
         this.graphics.use(Resources.Book2.toSprite());
         this.scale = new Vector(0.075, 0.075)

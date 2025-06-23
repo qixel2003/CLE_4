@@ -9,7 +9,7 @@ export class TropenDoor extends Actor {
 
     onInitialize(engine) {
         this.graphics.use(Resources.TropenDoor.toSprite());
-        this.pos = new Vector(500, 90);
+        this.pos = new Vector(600, 90);
         this.scale = new Vector(0.87, 0.87);
 
         this.on('collisionstart', (evt) => {

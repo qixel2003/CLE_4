@@ -9,7 +9,7 @@ export class SwampDoor extends Actor {
 
     onInitialize(engine) {
         this.graphics.use(Resources.SwampDoor.toSprite());
-        this.pos = new Vector(300, 90);
+        this.pos = new Vector(400, 90);
         this.scale = new Vector(0.60, 0.60);
 
         this.on('collisionstart', (evt) => {

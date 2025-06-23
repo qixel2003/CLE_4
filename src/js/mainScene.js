@@ -12,7 +12,6 @@ import { Obstacle6 } from "./lab/obstacle6.js";
 import { SwampDoor } from "./lab/swampDoor.js";
 import { TropenDoor } from "./lab/tropenDoor.js";
 import { PoolDoor } from "./lab/poolDoor.js";
-import { SavanneDoor } from "./lab/savanneDoor.js";
 import { LabBorderLeft } from "./lab/labBorderLeft.js";
 import { LabBorderRight } from "./lab/labBorderRight.js";
 import { LabBorderTop } from "./lab/labBorderTop.js";
@@ -52,9 +51,6 @@ export class MainScene extends Scene {
 
         let swampDoor = new SwampDoor();
         this.add(swampDoor)
-
-        let savanneDoor = new SavanneDoor();
-        this.add(savanneDoor)
 
         let poolDoor = new PoolDoor();
         this.add(poolDoor)
