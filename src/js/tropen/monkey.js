@@ -116,7 +116,9 @@ export class Monkey extends Actor {
             console.log("got ape")
             event.other.owner.kill()
             this.kill()
-
+            console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[1] = true
+            
          }
     }
  

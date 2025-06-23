@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { ScreenElement, Vector, Sprite, ImageSource, Actor } from 'excalibur';
+import { ScreenElement, Vector, Sprite, ImageSource, Actor, } from 'excalibur';
 import { Resources } from './resources';
 
 
@@ -20,32 +20,29 @@ export class UI extends ScreenElement {
         this.player = player;
         this.hearts = [];
 
-         this.discoverySprites = [
-            { 
-                name: "capybara", 
-                discovered: false, 
-                spriteOff: Resources.Capyundiscover.toSprite(), 
-                spriteOn: Resources.Capydiscover.toSprite() 
+        this.discoverySprites = [
+            {
+                name: "capybara",
+                spriteOff: Resources.Capyundiscover.toSprite(),
+                spriteOn: Resources.Capydiscover.toSprite()
             },
 
 
-            { 
-                name: "monkey", 
-                discovered: false, 
-                spriteOff: Resources.Monkeyundiscover.toSprite(), 
+            {
+                name: "monkey",
+                spriteOff: Resources.Monkeyundiscover.toSprite(),
                 spriteOn: Resources.MonkeyDiscover.toSprite()
-             },
+            },
 
 
-            { 
-                name: "orchid", 
-                discovered: false, 
-                spriteOff: Resources.Orchidundiscover.toSprite(), 
-                spriteOn: Resources.Orchiddiscover.toSprite() 
+            {
+                name: "orchid",
+                spriteOff: Resources.Orchidundiscover.toSprite(),
+                spriteOn: Resources.Orchiddiscover.toSprite()
             },
         ]
 
-        
+
     }
 
     async onInitialize(engine) {
@@ -54,7 +51,7 @@ export class UI extends ScreenElement {
             heartFullImage.load(),
             heartEmptyImage.load(),
 
-          
+
         ]);
 
         // Scale the sprites down (e.g., 50%)
@@ -66,14 +63,20 @@ export class UI extends ScreenElement {
 
         this.updateHearts(); // Initial render
         this.showAnimalPortraits()
-        
-        
-    
+
+
+
     }
 
     onPreUpdate() {
         this.updateHearts();
         this.showAnimalPortraits()
+    }
+
+    updateProgress() {
+        // toon huidige heart / discovery status
+        this.removeAllChildren()
+        // this.updateHearts();
     }
 
     updateHearts() {
@@ -99,17 +102,26 @@ export class UI extends ScreenElement {
         }
     }
 
-    showAnimalPortraits(){
-         for (let i = 0; i < this.discoverySprites.length; i++) {
-            let check = this.discoverySprites[i]
-            const discovery = new Actor({
-                pos: new Vector(50 + i * 70, 90), 
-                anchor: new Vector(0, 0)
-            });
-            discovery.graphics.use(check.discovered ? check.spriteOn : check.spriteOff);
-            discovery.z = 10;
-            this.addChild(discovery);
+    showAnimalPortraits() {
+        // get the player progress from the main gameMore actions
+
+        let progress = this.scene.engine.playerProgress
+        // console.log(this.engine.playerProgress)
+        // console.log(`ui shows player progress`)
+        // console.log(progress)
+        if (Array.isArray(progress)) {
+            for (let i = 0; i < progress.length; i++) {
+                const discovery = new Actor({
+                    pos: new Vector(50 + i * 70, 90),
+                    anchor: new Vector(0, 0)
+                })
+                discovery.graphics.use(progress[i] === true ? this.discoverySprites[i].spriteOn : this.discoverySprites[i].spriteOff);
+                discovery.z = 10;
+                this.addChild(discovery);
+            }
+        } else {
+            console.warn('playerProgress is not an array:', progress);
         }
     }
-    
 }
+

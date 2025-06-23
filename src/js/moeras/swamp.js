@@ -154,6 +154,12 @@ export class MoerasScene extends Scene {
         this.add(swampBorderBottom)
 
     }
+       onInitialize() {
+        // voorbeeld aanpassen playerprogress
+        // 0 = capybara, 1 = monkey, 2 = orchid
+        
+    }
+
 
     positionObstacle(ObstacleClass, number, positions) {
         const obstacleCount = number
@@ -178,13 +184,23 @@ export class MoerasScene extends Scene {
         }
 
         let placed = 0;
-        while (placed < obstacleCount) {
-            const x = margin + Math.random() * (width - 2 * margin)
-            const y = margin + Math.random() * (height - 2 * margin)
+         while (placed < obstacleCount) {
+            let x = margin + Math.random() * (width - 2 * margin);
+            let y = margin + Math.random() * (height - 2 * margin);
+
+            // Check if any part of the obstacle would overlap the forbidden zone
+            if (
+                x + margin > 300 && x - margin < 700 &&
+                y + margin > 250 && y - margin < 600
+            ) {
+                continue;
+            }
+
             if (isFarEnough(x, y)) {
-                let obstacle = new ObstacleClass()
-                obstacle.pos = new Vector(x, y)
-                this.add(obstacle)
+                let obstacle = new ObstacleClass();
+                obstacle.pos = new Vector(x, y);
+                this.add(obstacle);
+                console.log(x, y)
                 positions.push({ x: x, y: y });
                 placed++;
             }

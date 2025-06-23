@@ -175,6 +175,9 @@ export class Capybara extends Actor {
             event.other.owner.kill()
             this.kill()
             this.AnimalCount += 1
+            console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[0] = true
+            
 
 
         }

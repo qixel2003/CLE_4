@@ -13,6 +13,8 @@ import { TropenBorderLeft } from "./tropenBorderLeft.js";
 import { TropenBorderRight } from "./tropenBorderRight.js";
 import { TropenBorderTop } from "./tropenBorderTop.js";
 import { TropenBorderBottom } from "./tropenBorderBottom.js";
+import { Game } from "../game.js";
+import { UI } from "../UI.js";
 
 
 export class TropenScene extends Scene {
@@ -32,13 +34,13 @@ export class TropenScene extends Scene {
         const tropenbg = new TropenBackground({ pos: new Vector(0, 0) });
         this.add(tropenbg)
 
-        // const bubble = new Actor({ pos: new Vector(640, 360) });
-        // bubble.graphics.use(Resources.Bubble.toSprite());
-        // bubble.on("pointerup", () => {
-        //     ctx.engine.goToScene('game');
-        // });
-        // this.add(bubble);
+        // const sprite = this.engine.scenes.UI.discoverySprites.find(s => s.name === "monkey");
+        // if (sprite) {
+        //     sprite.discovered = true;
+        //     console.log("no monke")
+        // }
 
+        
 
         let tropenDoor = new TropenDoor();
         this.add(tropenDoor)
@@ -57,11 +59,7 @@ export class TropenScene extends Scene {
         this.positionObstacle(Orchid, 1, this.obstaclePositions)
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
         this.positionObstacle(Palmtree, 5, this.obstaclePositions)
-
-
-
-
-
+        
         // const player = new Player()
         // this.add(player)
         this.pos = new Vector(300, 60);
@@ -89,9 +87,12 @@ export class TropenScene extends Scene {
 
         let tropenBorderBottom = new TropenBorderBottom();
         this.add(tropenBorderBottom)
+
+        const playerUI = new UI(player)
+        this.add(playerUI)
+
+
     }
-
-
 
     positionObstacle(ObstacleClass, number, positions) {
         const obstacleCount = number
@@ -133,7 +134,7 @@ export class TropenScene extends Scene {
                 let obstacle = new ObstacleClass();
                 obstacle.pos = new Vector(x, y);
                 this.add(obstacle);
-                console.log(x,y)
+                console.log(x, y)
                 positions.push({ x: x, y: y });
                 placed++;
             }
