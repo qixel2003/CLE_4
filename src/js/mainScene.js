@@ -16,6 +16,7 @@ import { LabBorderLeft } from "./lab/labBorderLeft.js";
 import { LabBorderRight } from "./lab/labBorderRight.js";
 import { LabBorderTop } from "./lab/labBorderTop.js";
 import { LabBook } from "./lab/book.js";
+import { Mixer } from "./lab/mixer.js";
 
 
 export class MainScene extends Scene {
@@ -69,6 +70,9 @@ export class MainScene extends Scene {
 
         let labBook = new LabBook();
         this.add(labBook)
+
+        let mixer = new Mixer();
+        this.add(mixer)
 
         this.add(this.player);
 
