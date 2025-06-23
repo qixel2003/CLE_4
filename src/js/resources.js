@@ -16,8 +16,7 @@ const Resources = {
 
     //lab deuren
     SwampDoor: new ImageSource('images/lab/moerasdeur.png'),
-    PoolDoor: new ImageSource('images/lab/deurbasic.png'),
-    SavanneDoor: new ImageSource('images/lab/deurbasic.png'),
+    PoolDoor: new ImageSource('images/lab/pooldeur.png'),
     TropenDoor: new ImageSource('images/lab/tropen-door.png'),
 
     //placeholders
@@ -29,22 +28,23 @@ const Resources = {
     Hartred: new ImageSource('images/hartred.png'),
     Hartgrey: new ImageSource('images/hartgrey.png'),
 
-    //discovered icons animals
+    //discovered icons
     Capydiscover: new ImageSource("images/capyshrekicon.png"),
     MonkeyDiscover: new ImageSource("images/monkeycaughticon.png"),
-    //: new ImageSource("images/capyshrekicon.png"),
-
-    //discovered icons flowers
+    PenguDiscover: new ImageSource("images/penguinicon.png"),
+   
     Orchiddiscover: new ImageSource("images/orchidicon.png"),
+    Swamprosediscover: new ImageSource("images/swamprose-icon.png"),
     // Monkeydiscover: new ImageSource("images/capyshrekicon.png"),
 
 
-    //undiscovered icons animals
+    //undiscovered icons
     Capyundiscover: new ImageSource("images/capyshrekicon-bw.png"),
     Monkeyundiscover: new ImageSource("images/monkeycaughticon-bw.png"),
+    Penguundiscover: new ImageSource("images/penguinicon-bw.png"),
 
-    //undiscovered icons flowers
     Orchidundiscover: new ImageSource("images/orchidicon-bw.png"),
+    Swamprosediscover: new ImageSource("images/swamprose.png"),
 
     //player   
     Player: new ImageSource('images/player-sprite.png'),
