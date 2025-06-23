@@ -20,11 +20,17 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen
         })
         this.player = new Player();
+
+        // capybara, monkey, orchid discovery More actions
+        this.playerProgress = [false, false, false]
+
         this.start(ResourceLoader).then(() => this.startGame())
 
     }
 
     startGame() {
+
+
         console.log("start de game!")
         this.add('game', new MainScene(this.player))
         this.add('pool', new PoolScene())
@@ -32,7 +38,10 @@ export class Game extends Engine {
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
         this.goToScene('game')
+
+        
     }
 }
 
-new Game()
+let test = new Game()
+console.log(test.playerProgress)

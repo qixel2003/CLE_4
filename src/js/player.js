@@ -27,6 +27,7 @@ export class Player extends Actor {
     flowerCount;
     health;
     canLayFood
+    flowercollection
 
 
     constructor(health = 3) {
@@ -70,6 +71,7 @@ export class Player extends Actor {
         this.flowerCount = 0
 
         this.canlayFood = true;
+        this.flowercollection = []
         // this.Position = true
         // console.log(this.Position)
         // this.fastContacts = 0;      // In de constructor
@@ -79,6 +81,8 @@ export class Player extends Actor {
         // }
 
         // console.log(this.waterPosition)
+
+        // this.scene.mainScene.playerUI.discoverySprites[1].discovered = true
     }
 
     onPreUpdate(engine) {
@@ -150,7 +154,9 @@ export class Player extends Actor {
 
 
 
-
+        if (sessionStorage.key === "tropen") {
+            console.log("got an orchid")
+        }
 
         // if (this.fastOnSwamp === true) {
 
@@ -294,7 +300,6 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         this.on('collisionstart', (event) => this.hitMonkey(event));
-
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
     }
@@ -307,10 +312,6 @@ export class Player extends Actor {
                 console.log("lost flower")
                 sessionStorage.removeItem("flower")
                 console.log(sessionStorage.getItem("flower"))
-
-                // if (this.scene) {
-                //     this.scene.positionObstacle(Orchid, 1, this.scene.obstaclePositions);
-                // }
             }
         }
     }
@@ -318,24 +319,27 @@ export class Player extends Actor {
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
-            sessionStorage.setItem("flower", "orchid")
+            sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
             console.log(sessionStorage.getItem("flower"))
+            this.flowercollection.push("orchid")
             event.other.owner.kill()
+              console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[2] = true
+            
             this.flowerCount += 1
 
         }
 
         if (event.other.owner instanceof SwampRose) {
             console.log("got swampRose")
+            sessionStorage.setItem("swamp", "swamprose")
+            this.flowercollection.push("swamprose")
+            console.log(sessionStorage.getItem("swamp"))
+
             event.other.owner.kill()
             this.flowerCount += 1
-
-
         }
-
-
-
     }
 
 
