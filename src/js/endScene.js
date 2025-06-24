@@ -44,9 +44,7 @@ export class EndScene extends Scene {
         const typeName = () => {
             if (nameIndex < nameText.length) {
                 nameLabel.text += nameText[nameIndex++];
-                // setTimeout(typeName, interval);
-                engine.clock.schedule(() => typeName(), interval);
-
+                setTimeout(typeName, interval);
             } else {
                 typeText();
             }
@@ -59,9 +57,7 @@ export class EndScene extends Scene {
             if (textIndex < fullText.length) {
                 currentText += fullText[textIndex++];
                 label.text = currentText;
-                // setTimeout(typeText, interval);
-                engine.clock.schedule(() => typeText(), interval);
-
+                setTimeout(typeText, interval);
             } else {
                 this.readyForEnter = true;
                 this.pressLabel = new Label({
@@ -81,19 +77,12 @@ export class EndScene extends Scene {
                 }, 1000);
             }
         };
+        engine.input.keyboard.on('press', (evt) => {
+            if (evt.key === Keys.Enter && this.readyForEnter) {
+                sessionStorage.clear();
+                engine.goToScene('start');
+            }
+        });
         typeName();
-    }
-
-    onPreUpdate(engine, delta) {
-        if (this.readyForEnter) {
-            console.log("Ready for enter...");
-        }
-        if (this.readyForEnter && engine.input.keyboard.wasPressed(Keys.Enter)) {
-            console.log("Enter pressed, restarting...");
-            sessionStorage.clear();
-
-            engine.goToScene('start');
-
-        }
     }
 }
