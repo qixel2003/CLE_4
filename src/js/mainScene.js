@@ -16,10 +16,11 @@ import { LabBorderLeft } from "./lab/labBorderLeft.js";
 import { LabBorderRight } from "./lab/labBorderRight.js";
 import { LabBorderTop } from "./lab/labBorderTop.js";
 import { LabBook } from "./lab/book.js";
+import { Mixer } from "./lab/mixer.js";
 
 
 export class MainScene extends Scene {
-    player = null;
+    // player = null;
     constructor(player) {
         super();
         this.player = player;
@@ -70,6 +71,9 @@ export class MainScene extends Scene {
         let labBook = new LabBook();
         this.add(labBook)
 
+        let mixer = new Mixer();
+        this.add(mixer)
+
         this.add(this.player);
 
         const minX = 0;
@@ -78,11 +82,13 @@ export class MainScene extends Scene {
         const maxY = 920;
         this.camera.strategy.lockToActor(this.player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 1.35;
+        this.camera.zoom = 2.35;
         const playerUI = new UI(this.player)
         console.log(sessionStorage.getItem("flower"))
         console.log("spawn2")
         console.log("spawn");
         this.add(playerUI)
+        console.log(this.player instanceof Actor); // moet true zijn
+
     }
 }
