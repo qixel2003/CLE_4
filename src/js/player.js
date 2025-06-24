@@ -164,6 +164,12 @@ export class Player extends Actor {
         //     if (kb.wasPressed(Keys.Up)) this.layFood();
         // }
 
+
+
+        if (sessionStorage.key === "tropen") {
+            console.log("got an orchid")
+        }
+
         // if (this.fastOnSwamp === true) {
 
         //     xspeed = 0;
@@ -308,7 +314,7 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
-        
+
     }
 
 
@@ -331,9 +337,9 @@ export class Player extends Actor {
             console.log(sessionStorage.getItem("flower"))
             this.flowercollection.push("orchid")
             event.other.owner.kill()
-              console.log(this.scene.engine.playerProgress)
-            this.scene.engine.playerProgress[3] = true
-            
+            console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[2] = true
+
             this.flowerCount += 1
 
         }
@@ -344,7 +350,6 @@ export class Player extends Actor {
             this.flowercollection.push("swamprose")
             console.log(sessionStorage.getItem("swamp"))
 
-            this.scene.engine.playerProgress[4] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }
@@ -393,10 +398,6 @@ export class Player extends Actor {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
             this.canLayFood = false
-
-            if(this.canLayFood === false) {
-                this.scene.clear.food
-            }
         }
     }
 
@@ -434,7 +435,7 @@ export class Player extends Actor {
 
         console.log(`Applied status: ${statusName}`);
     }
-    
+
 
 
     takeDamage() {
