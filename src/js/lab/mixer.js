@@ -14,6 +14,11 @@ export class Mixer extends Actor {
     }
 
     onInitialize(engine) {
+        console.log("swamp:", sessionStorage.getItem("swamp"));
+        console.log("tropen:", sessionStorage.getItem("tropen"));
+        console.log("tropenanimal:", sessionStorage.getItem("tropenanimal"));
+        console.log("moerasanimal:", sessionStorage.getItem("moerasanimal"));
+
         this.playerIsTouching = false;
 
         this.on('collisionstart', (evt) => {
@@ -30,12 +35,15 @@ export class Mixer extends Actor {
         });
     }
 
-
     onPreUpdate(engine, delta) {
-        const hasSwamprose = sessionStorage.getItem("swamp") !== null;
-        const hasOrchid = sessionStorage.getItem("tropen") !== null;
-        const hasMonkey = sessionStorage.getItem("tropenanimal") !== null;
-        const hasCapybara = sessionStorage.getItem("moerasanimal") !== null;
+        const hasSwamprose = sessionStorage.getItem("swamp") === "swamprose";
+        const hasOrchid = sessionStorage.getItem("tropen") === "orchid";
+        const hasMonkey = sessionStorage.getItem("tropenanimal") === "monkey";
+        const hasCapybara = sessionStorage.getItem("moerasanimal") === "capybara";
+
+        if (engine.input.keyboard.wasPressed(Keys.Enter)) {
+            console.log("Enter key detected at all");
+        }
 
         if (this.playerIsTouching && hasSwamprose && hasOrchid && hasMonkey && hasCapybara && engine.input.keyboard.wasPressed(Keys.Enter)) {
             console.log("Enter pressed while touching mixer and all items collected!");
