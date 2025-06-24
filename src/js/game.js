@@ -24,7 +24,7 @@ export class Game extends Engine {
         this.player = new Player();
 
         // capybara, monkey, orchid discovery More actions
-        this.playerProgress = [false, false, false]
+        this.playerProgress = [false, false, false, false, false, false]
 
         this.start(ResourceLoader).then(() => this.startGame())
 

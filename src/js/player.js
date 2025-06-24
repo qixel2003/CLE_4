@@ -298,6 +298,10 @@ export class Player extends Actor {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
             this.canLayFood = false
+
+            if(this.canLayFood === false) {
+                this.scene.clear.food
+            }
         }
     }
 

@@ -107,12 +107,17 @@ export class MoerasScene extends Scene {
 
 
         let capybara = new Capybara()
-        this.add(capybara)
+        if (sessionStorage.getItem("moerasanimal") === null) {
+            this.add(capybara)
+        }
+
 
         let capyfiona = new Capyfiona()
         this.add(capyfiona)
 
-        this.positionObstacle(SwampRose, 1, this.obstaclePositions)
+        if (sessionStorage.getItem("swamp") === null) {
+            this.positionObstacle(SwampRose, 1, this.obstaclePositions)
+        }
 
         let swampDoor = new SwampDoor();
         this.add(swampDoor)
@@ -125,8 +130,8 @@ export class MoerasScene extends Scene {
 
         this.add(player)
 
-         this.positionObstacle(Grasblue, 8, this.obstaclePositions)
-         this.positionObstacle(Purplerock, 4, this.obstaclePositions)
+        this.positionObstacle(Grasblue, 8, this.obstaclePositions)
+        this.positionObstacle(Purplerock, 4, this.obstaclePositions)
 
         const playerUI = new UI(player)
         this.add(playerUI)
@@ -154,10 +159,10 @@ export class MoerasScene extends Scene {
         this.add(swampBorderBottom)
 
     }
-       onInitialize() {
+    onInitialize() {
         // voorbeeld aanpassen playerprogress
         // 0 = capybara, 1 = monkey, 2 = orchid
-        
+
     }
 
 
@@ -184,7 +189,7 @@ export class MoerasScene extends Scene {
         }
 
         let placed = 0;
-         while (placed < obstacleCount) {
+        while (placed < obstacleCount) {
             let x = margin + Math.random() * (width - 2 * margin);
             let y = margin + Math.random() * (height - 2 * margin);
 

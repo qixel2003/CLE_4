@@ -40,7 +40,7 @@ export class TropenScene extends Scene {
         //     console.log("no monke")
         // }
 
-        
+
 
         let tropenDoor = new TropenDoor();
         this.add(tropenDoor)
@@ -50,16 +50,24 @@ export class TropenScene extends Scene {
         this.add(player)
 
         let monkey = new Monkey()
-        this.add(monkey)
+
+        if (sessionStorage.getItem("tropenanimal") === null) {
+            this.add(monkey)
+        }
 
         this.obstaclePositions = [];
 
         this.positionObstacle(PurpleBush, 4, this.obstaclePositions)
         this.positionObstacle(PurpleBushBerries, 4, this.obstaclePositions)
-        this.positionObstacle(Orchid, 1, this.obstaclePositions)
+
+        if (sessionStorage.getItem("tropen") === null) {
+            this.positionObstacle(Orchid, 1, this.obstaclePositions)
+        }
+
+
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
         this.positionObstacle(Palmtree, 5, this.obstaclePositions)
-        
+
         // const player = new Player()
         // this.add(player)
         this.pos = new Vector(300, 60);
