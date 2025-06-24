@@ -52,7 +52,7 @@ export class TropenScene extends Scene {
         let monkey = new Monkey()
 
         if (sessionStorage.getItem("tropenanimal") === null) {
-        this.add(monkey)
+            this.add(monkey)
         }
 
         this.obstaclePositions = [];
@@ -61,7 +61,7 @@ export class TropenScene extends Scene {
         this.positionObstacle(PurpleBushBerries, 4, this.obstaclePositions)
 
         if (sessionStorage.getItem("tropen") === null) {
-        this.positionObstacle(Orchid, 1, this.obstaclePositions)
+            this.positionObstacle(Orchid, 1, this.obstaclePositions)
         }
 
 
@@ -82,7 +82,7 @@ export class TropenScene extends Scene {
 
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 2.35;
+        this.camera.zoom = 1.35;
 
         let tropenBorderLeft = new TropenBorderLeft();
         this.add(tropenBorderLeft)

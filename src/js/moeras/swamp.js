@@ -110,13 +110,13 @@ export class MoerasScene extends Scene {
         if (sessionStorage.getItem("moerasanimal") === null) {
             this.add(capybara)
         }
-        
+
 
         let capyfiona = new Capyfiona()
         this.add(capyfiona)
 
         if (sessionStorage.getItem("swamp") === null) {
-        this.positionObstacle(SwampRose, 1, this.obstaclePositions)
+            this.positionObstacle(SwampRose, 1, this.obstaclePositions)
         }
 
         let swampDoor = new SwampDoor();
@@ -144,7 +144,7 @@ export class MoerasScene extends Scene {
 
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 2.35;
+        this.camera.zoom = 1.35;
 
         let swampBorderLeft = new SwampBorderLeft();
         this.add(swampBorderLeft)

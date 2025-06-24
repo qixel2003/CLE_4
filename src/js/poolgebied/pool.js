@@ -54,7 +54,7 @@ export class PoolScene extends Scene {
 
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 2.35;
+        this.camera.zoom = 1.35;
 
         let poolBorderLeft = new PoolBorderLeft();
         this.add(poolBorderLeft)
