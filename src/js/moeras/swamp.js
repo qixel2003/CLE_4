@@ -125,8 +125,8 @@ export class MoerasScene extends Scene {
 
         this.add(player)
 
-         this.positionObstacle(Grasblue, 8, this.obstaclePositions)
-         this.positionObstacle(Purplerock, 4, this.obstaclePositions)
+        this.positionObstacle(Grasblue, 8, this.obstaclePositions)
+        this.positionObstacle(Purplerock, 4, this.obstaclePositions)
 
         const playerUI = new UI(player)
         this.add(playerUI)
@@ -139,7 +139,7 @@ export class MoerasScene extends Scene {
 
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 1.35;
+        this.camera.zoom = 2.35;
 
         let swampBorderLeft = new SwampBorderLeft();
         this.add(swampBorderLeft)
@@ -154,10 +154,10 @@ export class MoerasScene extends Scene {
         this.add(swampBorderBottom)
 
     }
-       onInitialize() {
+    onInitialize() {
         // voorbeeld aanpassen playerprogress
         // 0 = capybara, 1 = monkey, 2 = orchid
-        
+
     }
 
 
@@ -184,7 +184,7 @@ export class MoerasScene extends Scene {
         }
 
         let placed = 0;
-         while (placed < obstacleCount) {
+        while (placed < obstacleCount) {
             let x = margin + Math.random() * (width - 2 * margin);
             let y = margin + Math.random() * (height - 2 * margin);
 

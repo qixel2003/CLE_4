@@ -40,7 +40,7 @@ export class TropenScene extends Scene {
         //     console.log("no monke")
         // }
 
-        
+
 
         let tropenDoor = new TropenDoor();
         this.add(tropenDoor)
@@ -59,7 +59,7 @@ export class TropenScene extends Scene {
         this.positionObstacle(Orchid, 1, this.obstaclePositions)
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
         this.positionObstacle(Palmtree, 5, this.obstaclePositions)
-        
+
         // const player = new Player()
         // this.add(player)
         this.pos = new Vector(300, 60);
@@ -74,7 +74,7 @@ export class TropenScene extends Scene {
 
         this.camera.strategy.lockToActor(player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
-        this.camera.zoom = 1.35;
+        this.camera.zoom = 2.35;
 
         let tropenBorderLeft = new TropenBorderLeft();
         this.add(tropenBorderLeft)
