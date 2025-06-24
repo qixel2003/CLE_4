@@ -8,6 +8,7 @@ import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
 import { MainScene } from './mainscene.js'
 import { StartScene } from './startScene.js'
+import { EndScene } from './endScene.js'
 
 
 export class Game extends Engine {
@@ -39,8 +40,9 @@ export class Game extends Engine {
         this.add('pool', new PoolScene())
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
-        this.goToScene('game')
-        // this.goToScene('start');
+        this.add('end', new EndScene());
+        // this.goToScene('game')
+        this.goToScene('start');
     }
 }
 

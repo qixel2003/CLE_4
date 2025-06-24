@@ -47,13 +47,13 @@ export class UI extends ScreenElement {
                 spriteOn: Resources.Orchiddiscover.toSprite()
             },
 
-             {
+            {
                 name: "swamprose",
                 spriteOff: Resources.Swamproseundiscover.toSprite(),
                 spriteOn: Resources.Swamprosediscover.toSprite()
             },
 
-             {
+            {
                 name: "orchid",
                 spriteOff: Resources.Orchidundiscover.toSprite(),
                 spriteOn: Resources.Orchiddiscover.toSprite()

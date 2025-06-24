@@ -11,10 +11,10 @@ export class LabBook extends Actor {
         this.collider.set(Shape.Box(900, 1200));
         this.pos = new Vector(600, 460);
         this.pages = [
-            "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte verslaan en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: springen, gooien, lokken.\n\nJe verliest een leven wanneer je iets\nverkeerd vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het begin\nbeginnen.",
-            "Controls:\n\nDoor op ? te klikken ga je naar voren.\n\nDoor op ? te klikken ga je naar\nachteren.\n\nDoor op ? te klikken ga je naar links.\n\nDoor op ? te klikken ga je naar rechts.",
-            "Vangmethodes:\n\nDoor op ? te klikken gooi je een net.\n\nDoor op ? te klikken gooi je een steen.\n\nDoor eerst de plant te pakken kan je\neen dier lokken.\n\nDoor op ? te klikken spring je op een\ndier.",
-            "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat het hoogst springt moet\nmet een net worden gevangen.\n\nHet dier dat agressief is moet je\naanvallen.\n\nHet dier dat ?\n\nOp het dier dat het verst glijdt moet je\nspringen."
+            "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte verslaan en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: springen, gooien, lokken.\n\nJe verliest een leven wanneer je iets\nverkeerd vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het\nbegin beginnen.",
+            "Controls:\n\nDoor de sticks te gebruiken voren,\nachteren, links en rechts.\n\nMet het vierkantje kan je interacten\nmet objecten.",
+            "Vangmethodes:\n\nDoor op het rondje te klikken gooi je\neen net.\n\nDoor eten neer te leggen kan je\neen dier lokken.\n\nDoor op kruisje te klikken spring je\nop een dier.",
+            "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat het hoogst springt moet\nmet een net worden gevangen.\n\nHet dier dat eten op ze hoofd heeft\nmoet je lokken.\n\nOp het dier dat glijdt moet je staan."
         ];
         this.currentPage = 0;
         this.popup = null;
@@ -25,8 +25,7 @@ export class LabBook extends Actor {
             dpadRight: 0,
             face4: 0
         };
-        this.inputCooldown = 250; // in milliseconds
-
+        this.inputCooldown = 250;
     }
 
     onInitialize(engine) {
@@ -92,6 +91,11 @@ export class LabBook extends Actor {
         const centerX = engine.drawWidth / 1.65;
         const centerY = engine.drawHeight / 2;
 
+        const player = engine.currentScene.actors.find(a => a instanceof Player);
+        if (player) {
+            player.isReadingBook = true;
+        }
+
         // Achtergrond 
         this.popupBg = new Actor({
             pos: new Vector(centerX, centerY),
@@ -104,6 +108,8 @@ export class LabBook extends Actor {
         this.popupBg.graphics.use(Resources.Book.toSprite());
         this.popupBg.scale = new Vector(0.75, 0.75);
         engine.currentScene.add(this.popupBg);
+        this.popup = this.popupBg;
+
 
         // Tekst
         this.popupLeft = new Label({
@@ -204,6 +210,12 @@ export class LabBook extends Actor {
         }
     }
     closePopup(engine) {
+
+        const player = engine.currentScene.actors.find(a => a instanceof Player);
+        if (player) {
+            player.isReadingBook = false;
+        }
+
         if (this.popup) {
             this.popup.kill();
             this.popup = null;
