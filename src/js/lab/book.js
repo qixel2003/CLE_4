@@ -25,8 +25,7 @@ export class LabBook extends Actor {
             dpadRight: 0,
             face4: 0
         };
-        this.inputCooldown = 250; // in milliseconds
-
+        this.inputCooldown = 250;
     }
 
     onInitialize(engine) {
@@ -92,6 +91,11 @@ export class LabBook extends Actor {
         const centerX = engine.drawWidth / 1.65;
         const centerY = engine.drawHeight / 2;
 
+        const player = engine.currentScene.actors.find(a => a instanceof Player);
+        if (player) {
+            player.isReadingBook = true;
+        }
+
         // Achtergrond 
         this.popupBg = new Actor({
             pos: new Vector(centerX, centerY),
@@ -104,6 +108,8 @@ export class LabBook extends Actor {
         this.popupBg.graphics.use(Resources.Book.toSprite());
         this.popupBg.scale = new Vector(0.75, 0.75);
         engine.currentScene.add(this.popupBg);
+        this.popup = this.popupBg;
+
 
         // Tekst
         this.popupLeft = new Label({
@@ -204,6 +210,12 @@ export class LabBook extends Actor {
         }
     }
     closePopup(engine) {
+
+        const player = engine.currentScene.actors.find(a => a instanceof Player);
+        if (player) {
+            player.isReadingBook = false;
+        }
+
         if (this.popup) {
             this.popup.kill();
             this.popup = null;

@@ -36,6 +36,7 @@ export class Player extends Actor {
             collisionType: CollisionType.Active
         });
 
+        this.isReadingBook = false;
         this.health = health;
         this.startHealth = health;
         this.baseSpeed = 300;
@@ -85,6 +86,12 @@ export class Player extends Actor {
         let yspeed = 0;
         let kb = engine.input.keyboard;
         let speed = this.baseSpeed * this.statusSpeedMultiplier;
+
+        if (this.isReadingBook) {
+            this.vel = new Vector(0, 0);
+            return;
+        }
+
 
         // Expire status effect
         if (this.statusEffect && Date.now() > this.statusExpireTime) {
