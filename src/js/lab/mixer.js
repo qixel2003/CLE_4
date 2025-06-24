@@ -11,14 +11,44 @@ export class Mixer extends Actor {
         this.pos = new Vector(601, 820);
         this.z = 50
 
+
     }
 
-    // onActivate(ctx) {
-    //     console.log(sessionStorage.getItem("orchid"));
-    // }
+    onInitialize(engine) {
+        console.log("swamp:", sessionStorage.getItem("swamp"));
+        console.log("tropen:", sessionStorage.getItem("tropen"));
+        console.log("tropenanimal:", sessionStorage.getItem("tropenanimal"));
+        console.log("moerasanimal:", sessionStorage.getItem("moerasanimal"));
+
+        this.playerIsTouching = false;
+
+        this.on('collisionstart', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                this.playerIsTouching = true;
+            }
+        });
+
+
+        this.on('collisionend', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                this.playerIsTouching = false;
+            }
+        });
+    }
 
     onPreUpdate(engine, delta) {
-        const hasSwamprose = sessionStorage.getItem("swamp") !== null;
-        const hasOrchid = sessionStorage.getItem("tropen") !== null;
+        const hasSwamprose = sessionStorage.getItem("swamp") === "swamprose";
+        const hasOrchid = sessionStorage.getItem("tropen") === "orchid";
+        const hasMonkey = sessionStorage.getItem("tropenanimal") === "monkey";
+        const hasCapybara = sessionStorage.getItem("moerasanimal") === "capybara";
+
+        if (engine.input.keyboard.wasPressed(Keys.Enter)) {
+            console.log("Enter key detected at all");
+        }
+
+        if (this.playerIsTouching && hasSwamprose && hasOrchid && hasMonkey && hasCapybara && engine.input.keyboard.wasPressed(Keys.Enter)) {
+            console.log("Enter pressed while touching mixer and all items collected!");
+            engine.goToScene('end');
+        }
     }
 }
