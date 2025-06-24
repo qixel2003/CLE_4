@@ -39,7 +39,7 @@ const Resources = {
     Capydiscover: new ImageSource("images/capyshrekicon.png"),
     MonkeyDiscover: new ImageSource("images/monkeycaughticon.png"),
     PenguDiscover: new ImageSource("images/penguinicon.png"),
-   
+
     Orchiddiscover: new ImageSource("images/orchidicon.png"),
     Swamprosediscover: new ImageSource("images/swamprose-icon.png"),
     // Monkeydiscover: new ImageSource("images/capyshrekicon.png"),
