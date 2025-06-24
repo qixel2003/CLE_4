@@ -13,16 +13,33 @@ export class Mixer extends Actor {
 
     }
 
-    // onActivate(ctx) {
-    //     console.log(sessionStorage.getItem("orchid"));
-    // }
+    onInitialize(engine) {
+        this.playerIsTouching = false;
+
+        this.on('collisionstart', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                this.playerIsTouching = true;
+            }
+        });
+
+
+        this.on('collisionend', (evt) => {
+            if (evt.other.owner instanceof Player) {
+                this.playerIsTouching = false;
+            }
+        });
+    }
+
 
     onPreUpdate(engine, delta) {
         const hasSwamprose = sessionStorage.getItem("swamp") !== null;
         const hasOrchid = sessionStorage.getItem("tropen") !== null;
+        const hasMonkey = sessionStorage.getItem("tropenanimal") !== null;
+        const hasCapybara = sessionStorage.getItem("moerasanimal") !== null;
 
-        if (hasSwamprose && hasOrchid && engine.input.keyboard.wasPressed(Keys.Enter)) {
-            console.log("Enter pressed and you have swamprose and orchid!");
+        if (this.playerIsTouching && hasSwamprose && hasOrchid && hasMonkey && hasCapybara && engine.input.keyboard.wasPressed(Keys.Enter)) {
+            console.log("Enter pressed while touching mixer and all items collected!");
+            engine.goToScene('end');
         }
     }
 }

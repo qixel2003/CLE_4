@@ -95,9 +95,76 @@ export class Player extends Actor {
 
 
 
+        // if (this.scene && this.scene.name === "moeras") {
+        //     let isOnSwamp = false;
+        //     if (this.scene && this.scene.swampAreas) {
+        //         for (const area of this.scene.swampAreas) {
+        //             // Simpele rechthoek-overlap check:
+        //             if (
+        //                 this.pos.x + this.width / 2 > area.pos.x - area.width / 2 &&
+        //                 this.pos.x - this.width / 2 < area.pos.x + area.width / 2 &&
+        //                 this.pos.y + this.height / 2 > area.pos.y - area.height / 2 &&
+        //                 this.pos.y - this.height / 2 < area.pos.y + area.height / 2
+        //             ) {
+        //                 isOnSwamp = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     this.fastOnSwamp = isOnSwamp;
+
+        // }
+
+
+
+        // if (this.scene && this.scene.name === "moeras") {
+        //     speed = this.fastOnSwamp ? 300 : 150;
+        // }
+
+        // if (this.fastOnSwamp === false) {
+        //     speed = 150; // Langzamer in water, normaal op land
+        //     xspeed = 0;
+        //     yspeed = 0;
+
+        //     // Gebruik deze speed voor je beweging:
+        //     if (kb.isHeld(Keys.W)) {
+        //         yspeed = -150;
+        //         this.graphics.use('runup');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.S)) {
+        //         yspeed = 150;
+        //         this.graphics.use('rundown');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.A)) {
+        //         xspeed = -150;
+        //         this.graphics.use('runleft');
+        //         animSet = true;
+        //     }
+        //     if (kb.isHeld(Keys.D)) {
+        //         xspeed = 150;
+        //         this.graphics.use('runright');
+        //         animSet = true;
+        //     }
+
+        //     if (kb.wasPressed(Keys.Right)) this.catch();
+        //     if (kb.wasPressed(Keys.Q)) this.interact();
+        //     if (kb.wasPressed(Keys.Up)) this.layFood();
+        // }
+
+
+
         if (sessionStorage.key === "tropen") {
             console.log("got an orchid")
         }
+
+        // if (this.fastOnSwamp === true) {
+
+        //     xspeed = 0;
+        //     yspeed = 0;
+        //     speed = 300;
+        //     kb = engine.input.keyboard;
 
         animSet = false;
         // --- Keyboard movement ---
@@ -227,7 +294,7 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
-        
+
     }
 
 
@@ -246,12 +313,26 @@ export class Player extends Actor {
     hitFlower(event) {
 
         if (event.other.owner instanceof Orchid) {
-            this.nearbyFlower = event.other.owner;
-            console.log("Standing near a flower");
+            sessionStorage.setItem("tropen", "orchid")
+            console.log("got Orchid")
+            console.log(sessionStorage.getItem("flower"))
+            this.flowercollection.push("orchid")
+            event.other.owner.kill()
+            console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[2] = true
+
+            this.flowerCount += 1
+
         }
+
         if (event.other.owner instanceof SwampRose) {
-            this.nearbyFlower = event.other.owner;
-            console.log("Standing near a flower");
+            console.log("got swampRose")
+            sessionStorage.setItem("swamp", "swamprose")
+            this.flowercollection.push("swamprose")
+            console.log(sessionStorage.getItem("swamp"))
+
+            event.other.owner.kill()
+            this.flowerCount += 1
         }
     }
 
@@ -298,10 +379,6 @@ export class Player extends Actor {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
             this.canLayFood = false
-
-            if(this.canLayFood === false) {
-                this.scene.clear.food
-            }
         }
     }
 
@@ -338,7 +415,7 @@ export class Player extends Actor {
             this.nearbyFlower = null;
         }
     }
-    
+
 
 
     applyStatus(statusName, duration = 3000) {
@@ -360,7 +437,7 @@ export class Player extends Actor {
 
         console.log(`Applied status: ${statusName}`);
     }
-    
+
 
 
     takeDamage() {
