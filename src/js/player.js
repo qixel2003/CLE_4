@@ -256,9 +256,10 @@ export class Player extends Actor {
                 animSet = true;
             }
 
-            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump();
-            if (gamepad.isButtonPressed(Buttons.Face2)) this.attack();
-            if (gamepad.isButtonPressed(Buttons.Face3)) this.interact();
+            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X
+            if (gamepad.isButtonPressed(Buttons.Face2)) this.catch(); //◯
+            if (gamepad.isButtonPressed(Buttons.Face3)) this.interact(); //▢
+            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△
         }
 
         // Final velocity clamp
