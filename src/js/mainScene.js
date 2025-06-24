@@ -17,6 +17,10 @@ import { LabBorderRight } from "./lab/labBorderRight.js";
 import { LabBorderTop } from "./lab/labBorderTop.js";
 import { LabBook } from "./lab/book.js";
 import { Mixer } from "./lab/mixer.js";
+import { Purplepotion } from "./lab/purplepotion.js";
+import { Randompotion } from "./lab/randompotion.js";
+import { Randompotionremains } from "./lab/randompotionremains.js";
+import { Brokenpotplant } from "./lab/brokenpotplant.js";
 
 
 export class MainScene extends Scene {
@@ -71,10 +75,24 @@ export class MainScene extends Scene {
         let labBook = new LabBook();
         this.add(labBook)
 
-        let mixer = new Mixer();
-        this.add(mixer)
+        let purplePotion = new Purplepotion();
+        this.add(purplePotion)
+
+        let randomPotions = new Randompotion();
+        this.add(randomPotions)
+
+        let randomPotionRemains = new Randompotionremains();
+        this.add(randomPotionRemains)
+
+        let brokenPotPlant = new Brokenpotplant(x,y);
+        this.add(brokenPotPlant)
+
+        
+        
 
         this.add(this.player);
+
+        
 
         const minX = 0;
         const maxX = 1240;
@@ -89,6 +107,9 @@ export class MainScene extends Scene {
         console.log("spawn");
         this.add(playerUI)
         console.log(this.player instanceof Actor); // moet true zijn
+
+        let mixer = new Mixer();
+        this.add(mixer)
 
     }
 }

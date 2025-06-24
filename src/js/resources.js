@@ -13,6 +13,13 @@ const Resources = {
     Obstacle5: new ImageSource('images/lab/labtablemiddle.png'),
     Book: new ImageSource('images/lab/book.png'),
     Book2: new ImageSource('images/lab/book.png'),
+    Antidotetable: new ImageSource("images/lab/antidotetable.png"),
+
+    //lab decorations
+    Purplepotion: new ImageSource("images/lab/purplepotion.png"),
+    Randompotions: new ImageSource("images/lab/randompotions.png"),
+    Randompotionsremains: new ImageSource("images/lab/randompotionsremains.png"),
+    Brokenpotplant: new ImageSource("images/lab/brokenpotplant.png"),
 
     //lab deuren
     SwampDoor: new ImageSource('images/lab/moerasdeur.png'),
