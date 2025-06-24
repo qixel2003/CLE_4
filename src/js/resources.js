@@ -44,7 +44,7 @@ const Resources = {
     Penguundiscover: new ImageSource("images/penguinicon-bw.png"),
 
     Orchidundiscover: new ImageSource("images/orchidicon-bw.png"),
-    Swamprosediscover: new ImageSource("images/swamprose.png"),
+    Swamproseundiscover: new ImageSource("images/swamproseicon-bw.png"),
 
     //player   
     Player: new ImageSource('images/player-sprite.png'),

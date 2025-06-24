@@ -118,7 +118,7 @@ export class Monkey extends Actor {
             this.kill()
             console.log(this.scene.engine.playerProgress)
             this.scene.engine.playerProgress[1] = true
-            
+            sessionStorage.setItem("tropenanimal", "monkey")
          }
     }
  

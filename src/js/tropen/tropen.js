@@ -50,13 +50,21 @@ export class TropenScene extends Scene {
         this.add(player)
 
         let monkey = new Monkey()
+
+        if (sessionStorage.getItem("tropenanimal") === null) {
         this.add(monkey)
+        }
 
         this.obstaclePositions = [];
 
         this.positionObstacle(PurpleBush, 4, this.obstaclePositions)
         this.positionObstacle(PurpleBushBerries, 4, this.obstaclePositions)
+
+        if (sessionStorage.getItem("tropen") === null) {
         this.positionObstacle(Orchid, 1, this.obstaclePositions)
+        }
+
+
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
         this.positionObstacle(Palmtree, 5, this.obstaclePositions)
         

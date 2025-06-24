@@ -107,12 +107,17 @@ export class MoerasScene extends Scene {
 
 
         let capybara = new Capybara()
-        this.add(capybara)
+        if (sessionStorage.getItem("moerasanimal") === null) {
+            this.add(capybara)
+        }
+        
 
         let capyfiona = new Capyfiona()
         this.add(capyfiona)
 
+        if (sessionStorage.getItem("swamp") === null) {
         this.positionObstacle(SwampRose, 1, this.obstaclePositions)
+        }
 
         let swampDoor = new SwampDoor();
         this.add(swampDoor)
