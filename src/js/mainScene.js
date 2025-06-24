@@ -84,10 +84,11 @@ export class MainScene extends Scene {
         let randomPotionRemains = new Randompotionremains();
         this.add(randomPotionRemains)
 
-        let brokenPotPlant = new Brokenpotplant(x,y);
+        let brokenPotPlant = new Brokenpotplant();
         this.add(brokenPotPlant)
 
-        
+        let mixer = new Mixer();
+        this.add(mixer)
         
 
         this.add(this.player);
@@ -108,8 +109,7 @@ export class MainScene extends Scene {
         this.add(playerUI)
         console.log(this.player instanceof Actor); // moet true zijn
 
-        let mixer = new Mixer();
-        this.add(mixer)
+        
 
     }
 }
