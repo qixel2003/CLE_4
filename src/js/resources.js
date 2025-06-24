@@ -86,7 +86,13 @@ const Resources = {
     //Polen
     Poolbg: new ImageSource('images/poolgebied/poolbg.png'),
     SnowMountain: new ImageSource('images/poolgebied/sneeuwberg.png'),
-    SnowPile: new ImageSource('images/poolgebied/snowpile.png')
+    SnowPile: new ImageSource('images/poolgebied/snowpile.png'),
+    SnowMan: new ImageSource('images/poolgebied/snowpop-tophat.png'),
+    Purplesaks: new ImageSource('images/poolgebied/purpsaks.png'),
+    // Penguintoslide: new ImageSource('images/poolgebied/penguintoslide-sprite.png'),
+    Penguin: new ImageSource('images/poolgebied/penguinsliding-sprite.png')
+
+
 
 
 

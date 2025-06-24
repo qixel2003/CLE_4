@@ -204,6 +204,9 @@ export class MoerasScene extends Scene {
             if (isFarEnough(x, y)) {
                 let obstacle = new ObstacleClass();
                 obstacle.pos = new Vector(x, y);
+
+                obstacle.z = 2;
+
                 this.add(obstacle);
                 console.log(x, y)
                 positions.push({ x: x, y: y });

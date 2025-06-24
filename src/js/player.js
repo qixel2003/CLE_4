@@ -5,6 +5,10 @@ import { Orchid } from './tropen/flower.js'
 import { Net } from './tropen/net.js'
 import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
+import { Purplesaks } from './poolgebied/purplesaks.js'
+import { Penguin } from './poolgebied/penguin.js'
+
+
 import { SwampBackground } from './moeras/background.js'
 import { SwampBackground1 } from "./moeras/swampbg1.js";
 import { SwampBackground2 } from "./moeras/swampbg2.js";
@@ -308,6 +312,8 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
+        this.on('collisionend', (event) => this.hitPenguin(event));
+
         
     }
 
@@ -320,6 +326,14 @@ export class Player extends Actor {
                 sessionStorage.removeItem("flower")
                 console.log(sessionStorage.getItem("flower"))
             }
+        }
+    }
+
+     hitPenguin(event) {
+        if (event.other.owner instanceof Penguin) {
+            console.log("got Penguin")
+             event.other.owner.kill()
+           
         }
     }
 
@@ -345,6 +359,17 @@ export class Player extends Actor {
             console.log(sessionStorage.getItem("swamp"))
 
             this.scene.engine.playerProgress[4] = true
+            event.other.owner.kill()
+            this.flowerCount += 1
+        }
+
+         if (event.other.owner instanceof Purplesaks) {
+            console.log("got purplesaks")
+            // sessionStorage.setItem("swamp", "swamprose")
+            // this.flowercollection.push("swamprose")
+            // console.log(sessionStorage.getItem("swamp"))
+
+            // this.scene.engine.playerProgress[4] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }
