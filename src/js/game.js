@@ -35,6 +35,7 @@ export class Game extends Engine {
 
 
         console.log("start de game!")
+        sessionStorage.clear();
         this.add('start', new StartScene());
         this.add('game', new MainScene(this.player))
         this.add('pool', new PoolScene())

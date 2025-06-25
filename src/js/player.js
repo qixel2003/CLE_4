@@ -446,7 +446,7 @@ export class Player extends Actor {
             if (this.nearbyFlower instanceof Orchid) {
                 sessionStorage.setItem("tropen", "orchid");
                 this.flowercollection.push("orchid");
-                this.scene.engine.playerProgress[2] = true;
+                this.scene.engine.playerProgress[3] = true;
                 console.log("Got Orchid");
             } else if (this.nearbyFlower instanceof SwampRose) {
                 sessionStorage.setItem("swamp", "swamprose");

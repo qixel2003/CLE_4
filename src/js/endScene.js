@@ -144,13 +144,17 @@ export class EndScene extends Scene {
             }
         });
 
-        const gamepad = engine.input.gamepads.at(0);
-
-        if (gamepad && gamepad.isButtonPressed(Buttons.Face3) && this.readyForEnter) {
-            sessionStorage.clear();
-            engine.goToScene('start');
-        }
 
         typeName();
     }
+    onPreUpdate(engine) {
+        const gamepad = engine.input.gamepads.at(0);
+        const now = Date.now();
+        if (gamepad.isButtonPressed(Buttons.Face3) && this.readyForEnter && now - this.lastEnterTime > 1000) {//
+            engine.goToScene('start');
+            window.location.reload();
+            sessionStorage.clear();
+        }
+    }
+
 }
