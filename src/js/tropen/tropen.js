@@ -31,6 +31,8 @@ export class TropenScene extends Scene {
     onActivate(ctx, engine, event) {
         this.clear();
 
+       
+        
         const tropenbg = new TropenBackground({ pos: new Vector(0, 0) });
         this.add(tropenbg)
 
@@ -59,10 +61,10 @@ export class TropenScene extends Scene {
 
         this.positionObstacle(PurpleBush, 4, this.obstaclePositions)
         this.positionObstacle(PurpleBushBerries, 4, this.obstaclePositions)
+        this.positionObstacle(Orchid, 1, this.obstaclePositions)
 
-        if (sessionStorage.getItem("tropen") === null) {
-            this.positionObstacle(Orchid, 1, this.obstaclePositions)
-        }
+        
+            
 
 
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
@@ -152,6 +154,8 @@ export class TropenScene extends Scene {
         }
         // ...existing code...
     }
+
+    
 }
 
 // createPlayer() {

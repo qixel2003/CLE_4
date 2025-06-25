@@ -340,14 +340,17 @@ export class Player extends Actor {
                 console.log("lost flower")
                 sessionStorage.removeItem("flower")
                 console.log(sessionStorage.getItem("flower"))
+                this.scene.engine.playerProgress[3] = false
             }
         }
     }
 
      hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
+            sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
-             event.other.owner.kill()
+            event.other.owner.kill()
+            this.scene.engine.playerProgress[2] = true
            
         }
     }
@@ -358,11 +361,11 @@ export class Player extends Actor {
         if (event.other.owner instanceof Orchid) {
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
-            console.log(sessionStorage.getItem("flower"))
+            
             this.flowercollection.push("orchid")
             event.other.owner.kill()
             console.log(this.scene.engine.playerProgress)
-            this.scene.engine.playerProgress[2] = true
+            this.scene.engine.playerProgress[3] = true
 
             this.flowerCount += 1
 
@@ -381,11 +384,10 @@ export class Player extends Actor {
 
          if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
-            // sessionStorage.setItem("swamp", "swamprose")
-            // this.flowercollection.push("swamprose")
-            // console.log(sessionStorage.getItem("swamp"))
+            sessionStorage.setItem("pool", "purplesaks")
+            
 
-            // this.scene.engine.playerProgress[4] = true
+            this.scene.engine.playerProgress[5] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }

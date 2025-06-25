@@ -39,9 +39,11 @@ export class Mixer extends Actor {
     onPreUpdate(engine, delta) {
         const hasSwamprose = sessionStorage.getItem("swamp") === "swamprose";
         const hasOrchid = sessionStorage.getItem("tropen") === "orchid";
+        const hasPurplesaks = sessionStorage.getItem("pool") === "purplesaks";
         const hasMonkey = sessionStorage.getItem("tropenanimal") === "monkey";
         const hasCapybara = sessionStorage.getItem("moerasanimal") === "capybara";
         const gamepad = engine.input.gamepads.at(0);
+        const hasPenguin = sessionStorage.getItem("poolanimal") === "penguin";
 
         if (engine.input.keyboard.wasPressed(Keys.Enter) || gamepad.isButtonPressed(Buttons.Face3)) {
             console.log("Enter key detected at all");

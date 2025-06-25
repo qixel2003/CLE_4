@@ -54,9 +54,9 @@ export class UI extends ScreenElement {
             },
 
             {
-                name: "orchid",
-                spriteOff: Resources.Orchidundiscover.toSprite(),
-                spriteOn: Resources.Orchiddiscover.toSprite()
+                name: "purplesaks",
+                spriteOff: Resources.Purplesaksundiscover.toSprite(),
+                spriteOn: Resources.Purplesaksdiscover.toSprite()
             },
         ]
 

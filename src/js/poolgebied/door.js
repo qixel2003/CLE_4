@@ -6,6 +6,8 @@ export class PoolDoor extends Actor {
     constructor(engine) {
         super({ width: Resources.PoolDoor.width, height: Resources.PoolDoor.height, collisionType: CollisionType.Passive })
         this.bijDeur;
+        this.listenerAdded = false;
+
     }
 
     onInitialize(engine, event) {
@@ -34,6 +36,19 @@ export class PoolDoor extends Actor {
                 }, 2000);
             }
         });
+
+        // Only add the listener once
+        if (!this.listenerAdded) {
+            engine.input.keyboard.on('press', (evt) => {
+                if (evt.key === 'Enter' && bijDeur) {
+                    engine.goToScene('game'); 
+                    setTimeout(() => {
+                        this.canUseDoor = true;
+                    }, 2000);
+                }
+            });
+            this.listenerAdded = true;
+        }
     }
     onPreUpdate(engine){
             const gamepad = engine.input.gamepads.at(0);

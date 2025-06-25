@@ -6,7 +6,7 @@ export class TropenDoor extends Actor {
     constructor(engine) {
         super({ width: Resources.TropenDoor.width, height: Resources.TropenDoor.height, collisionType: CollisionType.Passive })
         this.bijDeur;
-
+        this.listenerAdded = false;
     }
 
     onInitialize(engine, event) {
@@ -36,6 +36,20 @@ export class TropenDoor extends Actor {
                 }, 2000);
             }
         });
+
+
+         // Only add the listener once
+        if (!this.listenerAdded) {
+            engine.input.keyboard.on('press', (evt) => {
+                if (evt.key === 'Enter' && bijDeur) {
+                    engine.goToScene('game'); 
+                    setTimeout(() => {
+                        this.canUseDoor = true;
+                    }, 2000);
+                }
+            });
+            this.listenerAdded = true;
+        }
     }
 
     onPreUpdate(engine){

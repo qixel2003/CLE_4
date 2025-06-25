@@ -42,7 +42,7 @@ const Resources = {
 
     Orchiddiscover: new ImageSource("images/orchidicon.png"),
     Swamprosediscover: new ImageSource("images/swamprose-icon.png"),
-    // Monkeydiscover: new ImageSource("images/capyshrekicon.png"),
+    Purplesaksdiscover: new ImageSource("images/purplesaksicon.png"),
 
 
     //undiscovered icons
@@ -52,6 +52,7 @@ const Resources = {
 
     Orchidundiscover: new ImageSource("images/orchidicon-bw.png"),
     Swamproseundiscover: new ImageSource("images/swamproseicon-bw.png"),
+    Purplesaksundiscover: new ImageSource("images/purplesaksicon-bw.png"),
 
     //player   
     Player: new ImageSource('images/player-sprite.png'),
@@ -97,9 +98,13 @@ const Resources = {
     SnowMan: new ImageSource('images/poolgebied/snowpop-tophat.png'),
     Purplesaks: new ImageSource('images/poolgebied/purpsaks.png'),
     // Penguintoslide: new ImageSource('images/poolgebied/penguintoslide-sprite.png'),
-    Penguin: new ImageSource('images/poolgebied/penguinsliding-sprite.png')
+    Penguin: new ImageSource('images/poolgebied/penguinsliding-sprite.png'),
 
 
+    //music
+
+    //backgroundmusic moeras
+    BackgroundMusicMoeras: new Sound('sounds/capybaraloop.wav')
 
 
 
