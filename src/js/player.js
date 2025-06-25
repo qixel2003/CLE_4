@@ -305,6 +305,7 @@ export class Player extends Actor {
                 console.log("lost flower")
                 sessionStorage.removeItem("flower")
                 console.log(sessionStorage.getItem("flower"))
+                this.scene.engine.playerProgress[3] = false
             }
         }
     }
@@ -315,11 +316,11 @@ export class Player extends Actor {
         if (event.other.owner instanceof Orchid) {
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
-            console.log(sessionStorage.getItem("flower"))
+            
             this.flowercollection.push("orchid")
             event.other.owner.kill()
             console.log(this.scene.engine.playerProgress)
-            this.scene.engine.playerProgress[2] = true
+            this.scene.engine.playerProgress[3] = true
 
             this.flowerCount += 1
 
