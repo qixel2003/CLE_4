@@ -34,6 +34,8 @@ export class PoolScene extends Scene {
     onActivate(ctx) {
         this.clear();
 
+        Resources.BackgroundMusicMoeras.isStopped = true;
+
         const poolbg = new PoolBackground({ pos: new Vector(0, 0) });
         this.add(poolbg)
 
