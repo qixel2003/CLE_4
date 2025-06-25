@@ -171,6 +171,8 @@ export class Capybara extends Actor {
 
     hitFood(event) {
         if (event.other.owner instanceof Food) {
+                Resources.PickUp.play();
+
             console.log("got capybara")
             event.other.owner.kill()
             this.kill()
