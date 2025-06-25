@@ -6,7 +6,7 @@ import { BoundingBox } from "excalibur"
 import { PoolScene } from './poolgebied/pool.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
-import { MainScene } from './mainscene.js'
+import { MainScene } from './mainScene.js'
 import { StartScene } from './startScene.js'
 import { EndScene } from './endScene.js'
 
