@@ -5,6 +5,8 @@ import { Player } from "../player.js";
 export class SwampDoor extends Actor {
     constructor(engine) {
         super({ width: Resources.SwampDoor.width, height: Resources.SwampDoor.height, collisionType: CollisionType.Passive })
+         this.listenerAdded = false;
+
     }
 
     onInitialize(engine, event) {
@@ -34,5 +36,19 @@ export class SwampDoor extends Actor {
                 }, 2000);
             }
         });
+
+
+        // Only add the listener once
+        if (!this.listenerAdded) {
+            engine.input.keyboard.on('press', (evt) => {
+                if (evt.key === 'Enter' && bijDeur) {
+                    engine.goToScene('game'); 
+                    setTimeout(() => {
+                        this.canUseDoor = true;
+                    }, 2000);
+                }
+            });
+            this.listenerAdded = true;
+        }
     }
 }

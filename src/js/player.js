@@ -414,10 +414,6 @@ export class Player extends Actor {
 
 
     catch() {
-        // let b = new Net()
-        // b.pos = new Vector(this.pos.x, this.pos.y)
-        // this.scene.add(b)
-        // this.scene.add(new Net(this.pos.x + this.width/2, this.pos.y))
         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
             let direction = new Vector(1, 0);
             let net = new Net(this.pos, direction);
