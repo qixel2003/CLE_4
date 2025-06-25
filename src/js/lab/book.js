@@ -13,7 +13,7 @@ export class LabBook extends Actor {
         this.pages = [
             "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte verslaan en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: springen, gooien, lokken.\n\nJe verliest een leven wanneer je iets\nverkeerd vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het\nbegin beginnen.",
             "Controls:\n\nDoor de sticks te gebruiken voren,\nachteren, links en rechts.\n\nMet het vierkantje kan je interacten\nmet objecten.",
-            "Vangmethodes:\n\nDoor op het rondje te klikken gooi je\neen net.\n\nDoor eten neer te leggen kan je\neen dier lokken.\n\nDoor op kruisje te klikken spring je\nop een dier.",
+            "Vangmethodes:\n\nDoor op het rondje te klikken gooi je\neen net.\n\nDoor eten neer te leggen kan je\neen dier lokken.\n\nDoor op een dier te lopen vang je\neen dier.",
             "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat het hoogst springt moet\nmet een net worden gevangen.\n\nHet dier dat eten op ze hoofd heeft\nmoet je lokken.\n\nOp het dier dat glijdt moet je staan."
         ];
         this.currentPage = 0;
@@ -56,8 +56,8 @@ export class LabBook extends Actor {
             this.currentPage < this.pages.length - 1
         ) {
             this.currentPage++;
-            this.popup.text = this.pages[this.currentPage];
-            this.updateArrows();
+            this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+            this.popupRight.text = this.pages[this.currentPage * 2 + 1] || ""; this.updateArrows(); this.updateArrows();
             this.lastInputTime.dpadRight = now;
         }
 
@@ -68,14 +68,14 @@ export class LabBook extends Actor {
             this.currentPage > 0
         ) {
             this.currentPage--;
-            this.popup.text = this.pages[this.currentPage];
-            this.updateArrows();
+            this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+            this.popupRight.text = this.pages[this.currentPage * 2 + 1] || ""; this.updateArrows();
             this.lastInputTime.dpadLeft = now;
         }
 
         // Face4 to close
         if (
-            gamepad.isButtonPressed(Buttons.Face4) &&
+            gamepad.isButtonPressed(Buttons.Face2) &&
             now - this.lastInputTime.face4 > this.inputCooldown
         ) {
             this.closePopup(engine);

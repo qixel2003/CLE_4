@@ -104,8 +104,22 @@ const Resources = {
 
     //music
 
-    //backgroundmusic moeras
-    BackgroundMusicMoeras: new Sound('sounds/capybaraloop.wav')
+    //backgroundmusic 
+    BackgroundMusicMoeras: new Sound('sounds/capybaraloop.wav'),
+    BackgroundMusicLab: new Sound('sounds/labsound.wav'),
+    BackgroundMusicTropen: new Sound('sounds/junglesound.mp3'),
+    BackgroundMusicPoolgebied: new Sound('sounds/poolsound.mp3'),
+
+    //walking sound
+    WalkingSoundTropen: new Sound('sounds/tropenstappen.wav'),
+    WalkingSoundMoeras: new Sound('sounds/moerasstappen.wav'),
+    WalkingSoundPoolgebied: new Sound('sounds/snowstappen.wav'),
+    WalkingSoundLab: new Sound('sounds/labstappen.wav')
+
+
+
+
+
 
 
 

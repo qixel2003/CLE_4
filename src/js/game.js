@@ -6,7 +6,7 @@ import { BoundingBox } from "excalibur"
 import { PoolScene } from './poolgebied/pool.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
-import { MainScene } from './mainscene.js'
+import { MainScene } from './mainScene.js'
 import { StartScene } from './startScene.js'
 import { EndScene } from './endScene.js'
 
@@ -31,12 +31,14 @@ export class Game extends Engine {
 
         this.start(ResourceLoader).then(() => this.startGame())
 
+
     }
 
     startGame() {
 
 
         console.log("start de game!")
+        sessionStorage.clear();
         this.add('start', new StartScene());
         this.add('game', new MainScene(this.player))
         this.add('pool', new PoolScene())
@@ -48,6 +50,7 @@ export class Game extends Engine {
         // this.goToScene('game')
         this.goToScene('start');
     }
+
 }
 
 let test = new Game()

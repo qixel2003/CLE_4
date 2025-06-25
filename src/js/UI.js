@@ -101,7 +101,6 @@ export class UI extends ScreenElement {
             this.textLabel.pos = new Vector(600,800)
         }
         this.updateHearts(); // Initial render
-        this.showAnimalPortraits()
 
 
 
@@ -146,7 +145,7 @@ export class UI extends ScreenElement {
 
 
 
-    showAnimalPortraits() {
+    showAnimalPortraits(engine) {
         // get the player progress from the main gameMore actions
 
         let progress = this.scene.engine.playerProgress

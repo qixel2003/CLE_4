@@ -1,6 +1,9 @@
 import { Actor, Engine, Vector, Keys, CollisionType, SpriteSheet, range, Animation, Axes, Buttons, Shape } from "excalibur"
 import { Resources, ResourceLoader } from '../resources.js'
-// import { Net } from './net.js'
+import { Net } from '../tropen/net.js'
+import { Player } from '../player.js'
+import { Food } from '../moeras/food.js'
+
 
 export class Penguin extends Actor {
 
@@ -37,12 +40,12 @@ export class Penguin extends Actor {
 
         this.setRandomVelocity();
         this.nextDirectionChange = 0;
-        
+
     }
 
     setRandomVelocity() {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 200 + Math.random() * 150; 
+        const speed = 200 + Math.random() * 150;
         this.vel = Vector.fromAngle(angle).scale(speed);
 
         // Set animation based on direction
@@ -99,7 +102,9 @@ export class Penguin extends Actor {
     }
 
     onInitialize(engine) {
-        // this.on('collisionstart', (event) => this.hitNet(event))
+        this.on('collisionstart', (event) => this.hitNet(event))
+        this.on('collisionstart', (event) => this.hitFood(event))
+
 
     }
 
@@ -121,12 +126,24 @@ export class Penguin extends Actor {
 
     hitNet(event) {
         if (event.other.owner instanceof Net) {
-            console.log("got ape")
+            console.log("hit penguin")
+            const player = this.scene.actors.find(actor => actor instanceof Player)
+            if (player) {
+                player.takeDamage(1)
+                console.log("player lost a life")
+            }
+            this.pos = new Vector(200, 300);
+        }
+    }
+
+    hitFood(event) {
+        if (event.other.owner instanceof Food) {
             event.other.owner.kill()
-            this.kill()
-            console.log(this.scene.engine.playerProgress)
-            this.scene.engine.playerProgress[1] = true
-            sessionStorage.setItem("tropenanimal", "monkey")
+            const player = this.scene.actors.find(actor => actor instanceof Player)
+            player.takeDamage(1)
+            console.log("player lost a life")
+            this.pos = new Vector(200, 300);
+
         }
     }
 

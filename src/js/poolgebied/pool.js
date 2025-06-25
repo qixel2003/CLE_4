@@ -32,6 +32,8 @@ export class PoolScene extends Scene {
 
 
     onActivate(ctx) {
+        Resources.BackgroundMusicPoolgebied.loop = true;
+        Resources.BackgroundMusicPoolgebied.play();
         this.clear();
 
         Resources.BackgroundMusicMoeras.isStopped = true;
@@ -133,5 +135,9 @@ export class PoolScene extends Scene {
             }
         }
 
+    }
+
+    onDeactivate() {
+        Resources.BackgroundMusicPoolgebied.stop();
     }
 }

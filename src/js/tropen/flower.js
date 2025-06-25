@@ -7,7 +7,7 @@ export class Orchid extends Actor {
         super({ 
             width: Resources.Orchid.width, 
             height: Resources.Orchid.height, 
-            collisionType: CollisionType.Fixed
+            collisionType: CollisionType.Passive
         })
         
         this.graphics.use(Resources.Orchid.toSprite())
