@@ -28,12 +28,15 @@ export class MainScene extends Scene {
     constructor(player) {
         super();
         this.player = player;
+
     }
 
     onActivate(ctx) {
+        Resources.BackgroundMusicLab.loop = true;
+        Resources.BackgroundMusicLab.play();
         this.clear();
 
-        
+
 
         const labBackground = new LabBackground();
         this.add(labBackground)
@@ -91,11 +94,11 @@ export class MainScene extends Scene {
 
         let mixer = new Mixer();
         this.add(mixer)
-        
+
 
         this.add(this.player);
 
-        
+
 
         const minX = 0;
         const maxX = 1240;
@@ -111,7 +114,11 @@ export class MainScene extends Scene {
         this.add(playerUI)
         console.log(this.player instanceof Actor); // moet true zijn
 
-        
 
+
+    }
+
+     onDeactivate() {
+        Resources.BackgroundMusicLab.stop();
     }
 }

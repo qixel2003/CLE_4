@@ -86,6 +86,10 @@ export class Player extends Actor {
 
         this.canlayFood = true;
         this.flowercollection = []
+
+
+        this.isWalking = false;
+        this.walkSoundInstance = null;
     }
 
     onPreUpdate(engine) {
@@ -111,76 +115,11 @@ export class Player extends Actor {
 
 
 
-        // if (this.scene && this.scene.name === "moeras") {
-        //     let isOnSwamp = false;
-        //     if (this.scene && this.scene.swampAreas) {
-        //         for (const area of this.scene.swampAreas) {
-        //             // Simpele rechthoek-overlap check:
-        //             if (
-        //                 this.pos.x + this.width / 2 > area.pos.x - area.width / 2 &&
-        //                 this.pos.x - this.width / 2 < area.pos.x + area.width / 2 &&
-        //                 this.pos.y + this.height / 2 > area.pos.y - area.height / 2 &&
-        //                 this.pos.y - this.height / 2 < area.pos.y + area.height / 2
-        //             ) {
-        //                 isOnSwamp = true;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     this.fastOnSwamp = isOnSwamp;
-
-        // }
-
-
-
-        // if (this.scene && this.scene.name === "moeras") {
-        //     speed = this.fastOnSwamp ? 300 : 150;
-        // }
-
-        // if (this.fastOnSwamp === false) {
-        //     speed = 150; // Langzamer in water, normaal op land
-        //     xspeed = 0;
-        //     yspeed = 0;
-
-        //     // Gebruik deze speed voor je beweging:
-        //     if (kb.isHeld(Keys.W)) {
-        //         yspeed = -150;
-        //         this.graphics.use('runup');
-        //         animSet = true;
-        //     }
-        //     if (kb.isHeld(Keys.S)) {
-        //         yspeed = 150;
-        //         this.graphics.use('rundown');
-        //         animSet = true;
-        //     }
-        //     if (kb.isHeld(Keys.A)) {
-        //         xspeed = -150;
-        //         this.graphics.use('runleft');
-        //         animSet = true;
-        //     }
-        //     if (kb.isHeld(Keys.D)) {
-        //         xspeed = 150;
-        //         this.graphics.use('runright');
-        //         animSet = true;
-        //     }
-
-        //     if (kb.wasPressed(Keys.Right)) this.catch();
-        //     if (kb.wasPressed(Keys.Q)) this.interact();
-        //     if (kb.wasPressed(Keys.Up)) this.layFood();
-        // }
-
-
 
         if (sessionStorage.key === "tropen") {
             console.log("got an orchid")
         }
 
-        // if (this.fastOnSwamp === true) {
-
-        //     xspeed = 0;
-        //     yspeed = 0;
-        //     speed = 300;
-        //     kb = engine.input.keyboard;
 
         animSet = false;
         // --- Keyboard movement ---
@@ -307,6 +246,26 @@ export class Player extends Actor {
         this.vel = vel;
 
 
+        let wasWalking = this.isWalking;
+        this.isWalking = xspeed !== 0 || yspeed !== 0;
+
+
+        // Play walking sound if started walking
+        if (this.isWalking && !wasWalking) {
+            const sound = this.getWalkSound();
+            if (sound) {
+                sound.loop = true;
+                sound.play();
+                this.walkSoundInstance = sound;
+            }
+        }
+        // Stop walking sound if stopped
+        if (!this.isWalking && wasWalking && this.walkSoundInstance) {
+            this.walkSoundInstance.stop();
+            this.walkSoundInstance = null;
+        }
+
+
         // Damage from enemy collision
         // if (this.isCollidingWithEnemy && Date.now() - this.lastHitTime >= 1000) {
         //     this.health -= this.collidingEnemy.attack;
@@ -340,17 +299,10 @@ export class Player extends Actor {
         if (event.other.owner instanceof Monkey) {
             this.takeDamage(1)
             console.log("player lost a life")
-            // if (this.flowerCount > 0) {
-            //     this.flowerCount -= 1
-            //     console.log("lost flower")
-            //     sessionStorage.removeItem("flower")
-            //     console.log(sessionStorage.getItem("flower"))
-            //     this.scene.engine.playerProgress[3] = false
-            // }
         }
     }
 
-      hitCapybara(event) {
+    hitCapybara(event) {
         if (event.other.owner instanceof Capybara) {
             this.takeDamage(1)
             console.log("player lost a life")
@@ -406,17 +358,6 @@ export class Player extends Actor {
             this.nearbyFlower = null;
             console.log("Moved away from the flower");
         }
-    }
-
-
-    jump() {
-        console.log("Jump action triggered");
-        // Implement jump logic here (e.g., apply upward velocity if grounded)
-    }
-
-    attack() {
-        console.log("Attack action triggered");
-        // Implement attack logic here (e.g., play animation, detect hit)
     }
 
     catch() {
@@ -544,10 +485,29 @@ export class Player extends Actor {
 
     }
 
-    // gameOver() {
-    //     this.scene.engine.goToScene('game');
-    //     this.health = this.startHealth;
-    // }
+
+    getWalkSound() {
+        switch (this.scene.name) {
+            case "game": // or "lab", depending on your naming
+                return Resources.WalkingSoundLab;
+            case "tropen":
+                return Resources.WalkingSoundTropen;
+            case "pool":
+                return Resources.WalkingSoundPoolgebied;
+            case "moeras":
+                return Resources.WalkingSoundMoeras;
+            default:
+                return null;
+        }
+    }
+
+    onDeactivate() {
+        if (this.walkSoundInstance) {
+            this.walkSoundInstance.stop();
+            this.walkSoundInstance = null;
+        }
+    }
+
 
     gameOver() {
         let flashes = 6;

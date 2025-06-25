@@ -26,13 +26,18 @@ export class TropenScene extends Scene {
         super()
 
         this.name = "tropen"
+
+    
     }
 
     onActivate(ctx, engine, event) {
-        this.clear();
 
-       
-        
+        Resources.BackgroundMusicTropen.loop = true;
+        Resources.BackgroundMusicTropen.play();
+         this.clear();
+
+
+
         const tropenbg = new TropenBackground({ pos: new Vector(0, 0) });
         this.add(tropenbg)
 
@@ -63,8 +68,8 @@ export class TropenScene extends Scene {
         this.positionObstacle(PurpleBushBerries, 4, this.obstaclePositions)
         this.positionObstacle(Orchid, 1, this.obstaclePositions)
 
-        
-            
+
+
 
 
         this.positionObstacle(YellowStone, 6, this.obstaclePositions)
@@ -155,7 +160,11 @@ export class TropenScene extends Scene {
         // ...existing code...
     }
 
-    
+    onDeactivate() {
+        Resources.BackgroundMusicTropen.stop();
+    }
+
+
 }
 
 // createPlayer() {
