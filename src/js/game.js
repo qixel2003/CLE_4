@@ -29,6 +29,7 @@ export class Game extends Engine {
 
         this.start(ResourceLoader).then(() => this.startGame())
 
+
     }
 
     startGame() {
@@ -45,6 +46,7 @@ export class Game extends Engine {
         // this.goToScene('game')
         this.goToScene('start');
     }
+
 }
 
 let test = new Game()

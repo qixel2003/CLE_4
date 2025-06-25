@@ -21,6 +21,10 @@ import { Purplepotion } from "./lab/purplepotion.js";
 import { Randompotion } from "./lab/randompotion.js";
 import { Randompotionremains } from "./lab/randompotionremains.js";
 import { Brokenpotplant } from "./lab/brokenpotplant.js";
+import { LongBooks } from "./lab/longBooks.js";
+import { Books } from "./lab/books.js";
+import { LongBooks2 } from "./lab/longBooks2.js";
+import { Books2 } from "./lab/books2.js";
 
 
 export class MainScene extends Scene {
@@ -28,12 +32,15 @@ export class MainScene extends Scene {
     constructor(player) {
         super();
         this.player = player;
+
     }
 
     onActivate(ctx) {
+        Resources.BackgroundMusicLab.loop = true;
+        Resources.BackgroundMusicLab.play();
         this.clear();
 
-        
+
 
         const labBackground = new LabBackground();
         this.add(labBackground)
@@ -89,13 +96,25 @@ export class MainScene extends Scene {
         let brokenPotPlant = new Brokenpotplant();
         this.add(brokenPotPlant)
 
+        let books = new Books();
+        this.add(books)
+
+        let books2 = new Books2();
+        this.add(books2)
+
+        let longBooks = new LongBooks();
+        this.add(longBooks)
+
+        let longBooks2 = new LongBooks2();
+        this.add(longBooks2)
+
         let mixer = new Mixer();
         this.add(mixer)
-        
+
 
         this.add(this.player);
 
-        
+
 
         const minX = 0;
         const maxX = 1240;
@@ -111,7 +130,11 @@ export class MainScene extends Scene {
         this.add(playerUI)
         console.log(this.player instanceof Actor); // moet true zijn
 
-        
 
+
+    }
+
+    onDeactivate() {
+        Resources.BackgroundMusicLab.stop();
     }
 }

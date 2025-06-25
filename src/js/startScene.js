@@ -1,4 +1,6 @@
 import { Scene, Label, Color, Font, FontUnit, Vector, Keys, Buttons } from "excalibur"
+import { Resources } from "./resources.js";
+
 
 export class StartScene extends Scene {
     readyForEnter = false;
@@ -169,11 +171,23 @@ export class StartScene extends Scene {
             this.lastEnterTime = now;
             engine.goToScene('game');
         }
-        
+
         if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {
             this.skipTyping();
         }
-        }
-
     }
+
+    onActivate(ctx) {
+        Resources.BackgroundMusicStartScene.loop = true;
+        Resources.BackgroundMusicStartScene.play();
+        // this.clear();
+    }
+
+
+
+    onDeactivate() {
+        
+        Resources.BackgroundMusicStartScene.stop();
+    }
+}
 
