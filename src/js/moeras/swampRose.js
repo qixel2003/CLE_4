@@ -7,7 +7,7 @@ export class SwampRose extends Actor {
         super({ 
             width: Resources.SwampRose.width, 
             height: Resources.SwampRose.height, 
-            collisionType: CollisionType.Fixed 
+            collisionType: CollisionType.Passive 
         })
         
         this.graphics.use(Resources.SwampRose.toSprite())

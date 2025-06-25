@@ -165,17 +165,15 @@ export class StartScene extends Scene {
         const gamepad = engine.input.gamepads.at(0);
 
         if (this.readyForEnter && (engine.input.keyboard.wasPressed(Keys.Enter) || gamepad.isButtonPressed(Buttons.Face3))) {
-        const now = Date.now();
-        if (
-            engine.input.keyboard.wasPressed(Keys.Enter)
-        ) {
+            const now = Date.now();
             this.lastEnterTime = now;
             engine.goToScene('game');
         }
-        if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {}
+        
+        if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {
             this.skipTyping();
+        }
         }
 
     }
-}
 
