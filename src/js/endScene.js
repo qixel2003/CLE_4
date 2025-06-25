@@ -110,7 +110,26 @@ export class EndScene extends Scene {
                 });
                 capybaraActor.graphics.use(capybaraSprite);
                 this.add(capybaraActor);
+
+                const penguinSheet = SpriteSheet.fromImageSource({
+                    image: Resources.Penguin,
+                    grid: { rows: 1, columns: 12, spriteWidth: 100, spriteHeight: 250 }
+                });
+
+                const penguinSprite = penguinSheet.sprites[1];
+
+                const penguinActor = new Actor({
+                    pos: new Vector(-400, 700),
+                    width: 300,
+                    height: 300,
+                    vel: new Vector(speed, 0)
+                });
+                penguinActor.graphics.use(penguinSprite);
+                this.add(penguinActor);
             }
+
+            // }
+
         };
         engine.input.keyboard.on('press', (evt) => {
             if (evt.key === Keys.Enter && this.readyForEnter) {
