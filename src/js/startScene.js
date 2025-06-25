@@ -172,9 +172,10 @@ export class StartScene extends Scene {
             this.lastEnterTime = now;
             engine.goToScene('game');
         }
-        if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {
+        if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {}
             this.skipTyping();
         }
 
     }
 }
+
