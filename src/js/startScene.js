@@ -1,4 +1,4 @@
-import { Scene, Label, Color, Font, FontUnit, Vector, Keys } from "excalibur"
+import { Scene, Label, Color, Font, FontUnit, Vector, Keys, Buttons } from "excalibur"
 
 export class StartScene extends Scene {
     readyForEnter = false;
@@ -77,7 +77,6 @@ export class StartScene extends Scene {
                 this.skipTyping();
             }
         });
-
 
         const nameText = "Code-X: Outbreak ZomBEASTs";
         const fullText = "Je bent een dokter die een infectie moet stoppen\nen geïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren te verslaan\nen planten te verzamelen om een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere gebieden.\n\nJe vangt de dieren op verschillende manieren:\nspringen, gooien, lokken.\n\nJe verliest een leven wanneer je iets verkeerd vangt.\n\nAls je dood bent verlies je progressie in de kamer\nen moet je vanaf het begin beginnen.\n\nGa naar het boek voor meer informatie.";
@@ -238,8 +237,14 @@ export class StartScene extends Scene {
     // }
 
     onPreUpdate(engine, delta) {
-        if (this.readyForEnter && engine.input.keyboard.wasPressed(Keys.Enter)) {
+        const gamepad = engine.input.gamepads.at(0);
+
+        if (this.readyForEnter && (engine.input.keyboard.wasPressed(Keys.Enter) || gamepad.isButtonPressed(Buttons.Face3))) {
             engine.goToScene('game');
         }
+        if (gamepad && gamepad.isButtonPressed(Buttons.Face2)) {
+            this.skipTyping();
+        }
+
     }
 }

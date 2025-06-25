@@ -47,6 +47,9 @@ export class Player extends Actor {
         this.statusEffect = null;
         this.statusSpeedMultiplier = 1;
         this.statusExpireTime = 0;
+        this.lastInteractTime = 0;
+        this.interactCooldown = 500; // milliseconds
+        
 
 
         this.scale = new Vector(0.4, 0.4);
@@ -267,10 +270,10 @@ export class Player extends Actor {
                 animSet = true;
             }
 
-            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X
+            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X this.jump()
             if (gamepad.isButtonPressed(Buttons.Face2)) this.catch(); //◯
             if (gamepad.isButtonPressed(Buttons.Face3)) this.interact(); //▢
-            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△
+            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△ldow
 
             if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearDoor && this.doorTargetScene) {
                 engine.goToScene(this.doorTargetScene);
@@ -413,6 +416,11 @@ export class Player extends Actor {
 
 
     catch() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
         // let b = new Net()
         // b.pos = new Vector(this.pos.x, this.pos.y)
         // this.scene.add(b)
@@ -427,6 +435,11 @@ export class Player extends Actor {
     }
 
     layFood() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
@@ -436,11 +449,18 @@ export class Player extends Actor {
 
 
     interact() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
+
         console.log("Interact action triggered");
         if (this.nearbyFlower) {
             this.flowerInteract();
         }
     }
+    
 
     flowerInteract() {
         if (this.nearbyFlower) {
@@ -495,6 +515,9 @@ export class Player extends Actor {
     takeDamage() {
         this.health -= 1;
         console.log("Damage taken");
+        if(this.health<=0){
+            this.gameOver();
+        }
     }
 
     onCollisionStart(event) {

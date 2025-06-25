@@ -14,7 +14,7 @@ export class Net extends Actor {
         super({ 
             width: Resources.Net.width, 
             height: Resources.Net.height, 
-            collisionType: CollisionType.Fixed 
+            collisionType: CollisionType.Passive 
         })
 
         this.graphics.use(Resources.Net.toSprite())

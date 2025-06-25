@@ -7,7 +7,7 @@ export class Food extends Actor {
         super({ 
             width: Resources.Food.width, 
             height: Resources.Food.height, 
-            collisionType: CollisionType.Fixed ,
+            collisionType: CollisionType.Passive ,
             pos : pos
         })
 
