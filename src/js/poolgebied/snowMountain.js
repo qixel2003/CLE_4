@@ -13,7 +13,7 @@ export class SnowMountain extends Actor {
         this.graphics.use(Resources.SnowMountain.toSprite())
         this.pos = new Vector(500, 300)
         this.scale = new Vector(0.2, 0.2)
-        this.collider.set(Shape.Box(300, 200, Vector.Zero, new Vector(-30, 0)));
+        this.collider.set(Shape.Box(550, 300, Vector.Zero, new Vector(-50, 20)));
 
     }
 
