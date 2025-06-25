@@ -48,8 +48,8 @@ export class Player extends Actor {
         this.statusSpeedMultiplier = 1;
         this.statusExpireTime = 0;
         this.lastInteractTime = 0;
-        this.interactCooldown = 500; // milliseconds
-        
+        this.interactCooldown = 500;
+        this.spawnPos = new Vector(500, 300);
 
 
         this.scale = new Vector(0.4, 0.4);
@@ -329,7 +329,7 @@ export class Player extends Actor {
         this.on('collisionend', (event) => this.leaveFlower(event));
         this.on('collisionend', (event) => this.hitPenguin(event));
 
-        
+
     }
 
 
@@ -345,13 +345,13 @@ export class Player extends Actor {
         }
     }
 
-     hitPenguin(event) {
+    hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
             sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
             event.other.owner.kill()
             this.scene.engine.playerProgress[2] = true
-           
+
         }
     }
 
@@ -361,7 +361,7 @@ export class Player extends Actor {
         if (event.other.owner instanceof Orchid) {
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
-            
+
             this.flowercollection.push("orchid")
             event.other.owner.kill()
             console.log(this.scene.engine.playerProgress)
@@ -382,10 +382,10 @@ export class Player extends Actor {
             this.flowerCount += 1
         }
 
-         if (event.other.owner instanceof Purplesaks) {
+        if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
             sessionStorage.setItem("pool", "purplesaks")
-            
+
 
             this.scene.engine.playerProgress[5] = true
             event.other.owner.kill()
@@ -462,7 +462,7 @@ export class Player extends Actor {
             this.flowerInteract();
         }
     }
-    
+
 
     flowerInteract() {
         if (this.nearbyFlower) {
@@ -516,8 +516,19 @@ export class Player extends Actor {
 
     takeDamage() {
         this.health -= 1;
+        this.pos = this.spawnPos.clone();
+
         console.log("Damage taken");
-        if(this.health<=0){
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+            }
+        }, 100);
+        if (this.health <= 0) {
             this.gameOver();
         }
     }
@@ -530,11 +541,22 @@ export class Player extends Actor {
 
     }
 
+    // gameOver() {
+    //     this.scene.engine.goToScene('game');
+    //     this.health = this.startHealth;
+    // }
 
     gameOver() {
-        this.pos.x = 400;
-        this.pos.y = 300;
-        this.health = this.startHealth;
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+                this.scene.engine.goToScene('game');
+                this.health = this.startHealth;
+            }
+        }, 100);
     }
-
 }
