@@ -260,6 +260,24 @@ export class Player extends Actor {
             if (gamepad.isButtonPressed(Buttons.Face2)) this.catch(); //◯
             if (gamepad.isButtonPressed(Buttons.Face3)) this.interact(); //▢
             if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△
+
+            if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearDoor && this.doorTargetScene) {
+                engine.goToScene(this.doorTargetScene);
+                setTimeout(() => {
+                    this.canUseDoor = true;
+                }, 2000);
+            }
+
+            if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearBook) {
+                const book = engine.currentScene.actors.find(a => a instanceof LabBook);
+                if (book) {
+                    if (!book.popupBg) {
+                        book.showPopup(engine);
+                    } else {
+                        book.closePopup(engine);
+                    }
+                }
+            }
         }
 
         // Final velocity clamp
