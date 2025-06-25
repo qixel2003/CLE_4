@@ -25,6 +25,10 @@ const Resources = {
     Randompotions: new ImageSource("images/lab/randompotions.png"),
     Randompotionsremains: new ImageSource("images/lab/randompotionsremains.png"),
     Brokenpotplant: new ImageSource("images/lab/brokenpotplant.png"),
+    Books: new ImageSource("images/lab/books.png"),
+    Books2: new ImageSource("images/lab/books.png"),
+    LongBooks: new ImageSource("images/lab/longbooks.png"),
+    LongBooks2: new ImageSource("images/lab/longbooks.png"),
 
     //lab deuren
     SwampDoor: new ImageSource('images/lab/moerasdeur.png'),
