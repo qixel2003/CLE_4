@@ -7,6 +7,7 @@ export class EndScene extends Scene {
 
     onInitialize(engine) {
         this.engine = engine;
+        this.lastEnterTime = 0;
 
         this.backgroundColor = Color.Black;
         const customFont = new Font({
@@ -127,16 +128,22 @@ export class EndScene extends Scene {
                 penguinActor.graphics.use(penguinSprite);
                 this.add(penguinActor);
             }
-
-            // }
-
         };
+
         engine.input.keyboard.on('press', (evt) => {
-            if (evt.key === Keys.Enter && this.readyForEnter) {
+            const now = Date.now();
+            if (
+                evt.key === Keys.Enter &&
+                this.readyForEnter &&
+                now - this.lastEnterTime > 1000
+            ) {
+                this.lastEnterTime = now;
                 sessionStorage.clear();
-                engine.goToScene('start');
+                window.location.reload();
+                // engine.goToScene('start');
             }
         });
+
         typeName();
     }
 }
