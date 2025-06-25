@@ -39,14 +39,16 @@ export class Mixer extends Actor {
     onPreUpdate(engine, delta) {
         const hasSwamprose = sessionStorage.getItem("swamp") === "swamprose";
         const hasOrchid = sessionStorage.getItem("tropen") === "orchid";
+        const hasPurplesaks = sessionStorage.getItem("pool") === "purplesaks";
         const hasMonkey = sessionStorage.getItem("tropenanimal") === "monkey";
         const hasCapybara = sessionStorage.getItem("moerasanimal") === "capybara";
+        const hasPenguin = sessionStorage.getItem("poolanimal") === "penguin";
 
         if (engine.input.keyboard.wasPressed(Keys.Enter)) {
             console.log("Enter key detected at all");
         }
 
-        if (this.playerIsTouching && hasSwamprose && hasOrchid && hasMonkey && hasCapybara && engine.input.keyboard.wasPressed(Keys.Enter)) {
+        if (this.playerIsTouching && hasSwamprose && hasOrchid && hasPurplesaks && hasMonkey && hasCapybara && hasPenguin && engine.input.keyboard.wasPressed(Keys.Enter)) {
             console.log("Enter pressed while touching mixer and all items collected!");
             engine.goToScene('end');
         }
