@@ -40,7 +40,7 @@ export class PoolDoor extends Actor {
         // Only add the listener once
         if (!this.listenerAdded) {
             engine.input.keyboard.on('press', (evt) => {
-                if (evt.key === 'Enter' && bijDeur) {
+                if (evt.key === 'Enter' && this.bijDeur) {
                     engine.goToScene('game'); 
                     setTimeout(() => {
                         this.canUseDoor = true;

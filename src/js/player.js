@@ -357,43 +357,22 @@ export class Player extends Actor {
 
 
     hitFlower(event) {
-
         if (event.other.owner instanceof Orchid) {
-            sessionStorage.setItem("tropen", "orchid")
-            console.log("got Orchid")
-            
-            this.flowercollection.push("orchid")
-            event.other.owner.kill()
-            console.log(this.scene.engine.playerProgress)
-            this.scene.engine.playerProgress[3] = true
-
-            this.flowerCount += 1
-
+            console.log("hit Orchid");
+            this.nearbyFlower = event.other.owner;
         }
 
         if (event.other.owner instanceof SwampRose) {
-            console.log("got swampRose")
-            sessionStorage.setItem("swamp", "swamprose")
-            this.flowercollection.push("swamprose")
-            console.log(sessionStorage.getItem("swamp"))
-
-            this.scene.engine.playerProgress[4] = true
-            event.other.owner.kill()
-            this.flowerCount += 1
+            console.log("hit SwampRose");
+            this.nearbyFlower = event.other.owner;
         }
 
-         if (event.other.owner instanceof Purplesaks) {
-            console.log("got purplesaks")
-            sessionStorage.setItem("pool", "purplesaks")
-            
-
-            this.scene.engine.playerProgress[5] = true
-            event.other.owner.kill()
-            this.flowerCount += 1
+        if (event.other.owner instanceof Purplesaks) {
+            console.log("hit Purplesaks");
+            this.nearbyFlower = event.other.owner;
         }
     }
-
-
+    
 
     leaveFlower(event) {
         if (event.other.owner === this.nearbyFlower) {
@@ -401,21 +380,17 @@ export class Player extends Actor {
             console.log("Moved away from the flower");
         }
     }
-
-
-
+    
 
     jump() {
         console.log("Jump action triggered");
         // Implement jump logic here (e.g., apply upward velocity if grounded)
     }
 
-
     attack() {
         console.log("Attack action triggered");
         // Implement attack logic here (e.g., play animation, detect hit)
     }
-
 
     catch() {
         const now = Date.now();
@@ -449,7 +424,6 @@ export class Player extends Actor {
         }
     }
 
-
     interact() {
         const now = Date.now();
         if (now - this.lastInteractTime < this.interactCooldown) {
@@ -469,26 +443,28 @@ export class Player extends Actor {
             this.flowerCount += 1;
             console.log("Picked up flower! Total:", this.flowerCount);
 
-            // Determine flower type
             if (this.nearbyFlower instanceof Orchid) {
                 sessionStorage.setItem("tropen", "orchid");
                 this.flowercollection.push("orchid");
                 this.scene.engine.playerProgress[2] = true;
                 console.log("Got Orchid");
-                console.log("Flower collection:", this.flowercollection);
-            }
-            else if (this.nearbyFlower instanceof SwampRose) {
+            } else if (this.nearbyFlower instanceof SwampRose) {
                 sessionStorage.setItem("swamp", "swamprose");
                 this.flowercollection.push("swamprose");
+                this.scene.engine.playerProgress[4] = true;
                 console.log("Got SwampRose");
-                console.log("Flower collection:", this.flowercollection);
+            } else if (this.nearbyFlower instanceof Purplesaks) {
+                sessionStorage.setItem("pool", "purplesaks");
+                this.flowercollection.push("purplesaks");
+                this.scene.engine.playerProgress[5] = true;
+                console.log("Got Purplesaks");
             }
 
-            // Kill the flower after picking it up
             this.nearbyFlower.kill();
             this.nearbyFlower = null;
         }
     }
+    
 
 
 
