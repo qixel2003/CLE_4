@@ -315,7 +315,6 @@ export class Player extends Actor {
     }
 
     hitPenguin(event) {
-    hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
             sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
@@ -327,16 +326,16 @@ export class Player extends Actor {
 
     hitTable(event) {
         if (event.other.owner instanceof Trigger) {
-           this.scene.engine.tableHit = true
-           console.log("on")
+            this.scene.engine.tableHit = true
+            console.log("on")
         }
     }
 
     leftTable(event) {
         if (event.other.owner instanceof Trigger) {
-           this.scene.engine.tableHit = false
-           console.log("off")
-        
+            this.scene.engine.tableHit = false
+            console.log("off")
+
         }
     }
 
@@ -362,7 +361,7 @@ export class Player extends Actor {
             this.nearbyFlower = event.other.owner;
         }
 
-        if (event.other.owner instanceof Purplesaks) {
+
         if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
             sessionStorage.setItem("pool", "purplesaks")
@@ -546,3 +545,4 @@ export class Player extends Actor {
         }, 100);
     }
 }
+
