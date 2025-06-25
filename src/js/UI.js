@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { ScreenElement, Vector, Sprite, ImageSource, Actor, } from 'excalibur';
+import { ScreenElement, Vector, Sprite, ImageSource, Actor, Label, Font, FontUnit, Color } from 'excalibur';
 import { Resources } from './resources';
 
 
@@ -15,6 +15,8 @@ const heartEmptyImage = new ImageSource('images/hartgrey.png');
 // const monkeyDiscover = Resources.Monkeydiscover
 
 export class UI extends ScreenElement {
+    textlabel
+
     constructor(player) {
         super({ anchor: new Vector(0, 0) }); // anchor top-left
         this.player = player;
@@ -60,6 +62,19 @@ export class UI extends ScreenElement {
             },
         ]
 
+        this.textLabel = new Label({
+            text: '',
+            font: new Font({
+                family: 'Arial',
+                size: 24,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+
+        this.addChild(this.textLabel)
+
+       
 
     }
 
@@ -79,6 +94,12 @@ export class UI extends ScreenElement {
         this.heartEmpty = heartEmptyImage.toSprite();
         this.heartEmpty.scale.setTo(0.15, 0.15);
 
+        let tableHit = this.scene.engine.tableHit
+        if (tableHit){
+            console.log("hi")
+            this.textLabel.text = "press e to"
+            this.textLabel.pos = new Vector(600,800)
+        }
         this.updateHearts(); // Initial render
         this.showAnimalPortraits()
 
@@ -86,9 +107,12 @@ export class UI extends ScreenElement {
 
     }
 
+   
+
     onPreUpdate() {
         this.updateHearts();
-        this.showAnimalPortraits()
+        this.showAnimalPortraits() 
+        
     }
 
     updateProgress() {
@@ -119,6 +143,8 @@ export class UI extends ScreenElement {
             this.hearts.push(heart);
         }
     }
+
+
 
     showAnimalPortraits() {
         // get the player progress from the main gameMore actions

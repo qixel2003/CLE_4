@@ -21,6 +21,8 @@ import { Purplepotion } from "./lab/purplepotion.js";
 import { Randompotion } from "./lab/randompotion.js";
 import { Randompotionremains } from "./lab/randompotionremains.js";
 import { Brokenpotplant } from "./lab/brokenpotplant.js";
+import { Trigger } from "./trigger.js";
+
 
 
 export class MainScene extends Scene {
@@ -77,6 +79,9 @@ export class MainScene extends Scene {
         let labBook = new LabBook();
         this.add(labBook)
 
+        let tableTrigger = new Trigger()
+        this.add(tableTrigger)
+
         let purplePotion = new Purplepotion();
         this.add(purplePotion)
 
@@ -91,11 +96,10 @@ export class MainScene extends Scene {
 
         let mixer = new Mixer();
         this.add(mixer)
-        
+
+    
 
         this.add(this.player);
-
-        
 
         const minX = 0;
         const maxX = 1240;
@@ -104,11 +108,13 @@ export class MainScene extends Scene {
         this.camera.strategy.lockToActor(this.player);
         this.camera.strategy.limitCameraBounds(new BoundingBox(minX, minY, maxX, maxY));
         this.camera.zoom = 1.35;
-        const playerUI = new UI(this.player)
+        const playerUI = new UI(this.player, this.playerIsTouching)
         console.log(sessionStorage.getItem("flower"))
         console.log("spawn2")
         console.log("spawn");
         this.add(playerUI)
+
+        
         console.log(this.player instanceof Actor); // moet true zijn
 
         

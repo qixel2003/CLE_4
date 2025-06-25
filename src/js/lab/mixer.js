@@ -4,7 +4,11 @@ import { Player } from "../player.js";
 
 export class Mixer extends Actor {
     constructor() {
-        super({ width: Resources.Antidotetable.width, height: Resources.Antidotetable.height, collisionType: CollisionType.Passive });
+        super({ 
+            width: 100, 
+            height: 150, 
+            collisionType: CollisionType.Passive 
+        });
         this.graphics.use(Resources.Antidotetable.toSprite());
         this.scale = new Vector(1, 1)
         this.collider.set(Shape.Box(90, 120));

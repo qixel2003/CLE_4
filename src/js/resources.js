@@ -14,6 +14,7 @@ const Resources = {
     Book: new ImageSource('images/lab/book.png'),
     Book2: new ImageSource('images/lab/book.png'),
     Antidotetable: new ImageSource("images/lab/antidotetable.png"),
+    Trigger: new ImageSource("images/triggerplayer.png"),
 
     //lab decorations
     Purplepotion: new ImageSource("images/lab/purplepotion.png"),
