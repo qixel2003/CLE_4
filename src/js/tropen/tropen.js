@@ -31,6 +31,8 @@ export class TropenScene extends Scene {
     onActivate(ctx, engine, event) {
         this.clear();
 
+       
+        
         const tropenbg = new TropenBackground({ pos: new Vector(0, 0) });
         this.add(tropenbg)
 

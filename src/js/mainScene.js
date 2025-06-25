@@ -33,6 +33,8 @@ export class MainScene extends Scene {
     onActivate(ctx) {
         this.clear();
 
+        
+
         const labBackground = new LabBackground();
         this.add(labBackground)
 
