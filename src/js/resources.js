@@ -151,3 +151,10 @@ for (let res of Object.values(Resources)) {
 }
 
 export { Resources, ResourceLoader }
+
+export function stopAllWalkingSounds() {
+    Resources.WalkingSoundLab.stop();
+    Resources.WalkingSoundTropen.stop();
+    Resources.WalkingSoundPoolgebied.stop();
+    Resources.WalkingSoundMoeras.stop();
+}
