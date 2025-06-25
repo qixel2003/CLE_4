@@ -120,6 +120,9 @@ export class Monkey extends Actor {
 
     hitNet(event) {
         if (event.other.owner instanceof Net) {
+
+                Resources.PickUp.play();
+
             console.log("got ape")
             event.other.owner.kill()
             this.kill()

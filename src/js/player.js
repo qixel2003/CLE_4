@@ -91,6 +91,8 @@ export class Player extends Actor {
 
         this.isWalking = false;
         this.walkSoundInstance = null;
+
+
     }
 
     onPreUpdate(engine) {
@@ -297,6 +299,13 @@ export class Player extends Actor {
         this.on('collisionend', (event) => this.leftTable(event))
     }
 
+    // onActivate(ctx){
+    //     if(this.takeDamage()){
+    //     Resources.BackgroundDamage.play();
+    //     this.clear();
+    //     }
+    // }
+
 
 
 
@@ -316,6 +325,8 @@ export class Player extends Actor {
 
     hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
+                Resources.PickUp.play();
+
             sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
             event.other.owner.kill()
@@ -342,6 +353,7 @@ export class Player extends Actor {
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
+                Resources.PickUp.play();
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
 
@@ -357,12 +369,16 @@ export class Player extends Actor {
         }
 
         if (event.other.owner instanceof SwampRose) {
+                Resources.PickUp.play();
+
             console.log("hit SwampRose");
             this.nearbyFlower = event.other.owner;
         }
 
 
         if (event.other.owner instanceof Purplesaks) {
+                Resources.PickUp.play();
+
             console.log("got purplesaks")
             sessionStorage.setItem("pool", "purplesaks")
 
@@ -481,6 +497,9 @@ export class Player extends Actor {
 
 
     takeDamage() {
+
+        Resources.Damage.play();
+
         this.health -= 1;
         this.pos = this.spawnPos.clone();
 
@@ -495,6 +514,7 @@ export class Player extends Actor {
             }
         }, 100);
         if (this.health <= 0) {
+            Resources.Damage.stop();
             this.gameOver();
         }
     }
@@ -532,6 +552,9 @@ export class Player extends Actor {
 
 
     gameOver() {
+
+        Resources.Died.play()
+
         let flashes = 6;
         let flashInterval = setInterval(() => {
             this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;

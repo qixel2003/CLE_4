@@ -14,6 +14,11 @@ const Resources = {
     Book: new ImageSource('images/lab/book.png'),
     Book2: new ImageSource('images/lab/book.png'),
     Antidotetable: new ImageSource("images/lab/antidotetable.png"),
+    Books: new ImageSource("images/books.png"),
+    LongBooks: new ImageSource("images/longbooks.png"),
+    LongBooks2: new ImageSource("images/longbooks.png"),
+
+ 
     Trigger: new ImageSource("images/triggerplayer.png"),
 
     //lab decorations
@@ -21,6 +26,10 @@ const Resources = {
     Randompotions: new ImageSource("images/lab/randompotions.png"),
     Randompotionsremains: new ImageSource("images/lab/randompotionsremains.png"),
     Brokenpotplant: new ImageSource("images/lab/brokenpotplant.png"),
+    Books: new ImageSource("images/lab/books.png"),
+    Books2: new ImageSource("images/lab/books.png"),
+    LongBooks: new ImageSource("images/lab/longbooks.png"),
+    LongBooks2: new ImageSource("images/lab/longbooks.png"),
 
     //lab deuren
     SwampDoor: new ImageSource('images/lab/moerasdeur.png'),
@@ -109,12 +118,23 @@ const Resources = {
     BackgroundMusicLab: new Sound('sounds/labsound.wav'),
     BackgroundMusicTropen: new Sound('sounds/junglesound.mp3'),
     BackgroundMusicPoolgebied: new Sound('sounds/poolsound.mp3'),
+    BackgroundMusicStartScene: new Sound('sounds/startscene.wav'),
+    BackgroundMusicEndScene: new Sound('sounds/endscene.wav'),
+
 
     //walking sound
     WalkingSoundTropen: new Sound('sounds/tropenstappen.wav'),
     WalkingSoundMoeras: new Sound('sounds/moerasstappen.wav'),
     WalkingSoundPoolgebied: new Sound('sounds/snowstappen.wav'),
-    WalkingSoundLab: new Sound('sounds/labstappen.wav')
+    WalkingSoundLab: new Sound('sounds/labstappen.wav'),
+
+    //damage sound
+    Damage: new Sound('sounds/damagesound.wav'),
+    Died: new Sound('sounds/diedsound.wav'),
+
+    //Pick up
+    PickUp: new Sound('sounds/pickupsound.wav')
+
 
 
 
