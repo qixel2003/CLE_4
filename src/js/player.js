@@ -340,13 +340,13 @@ export class Player extends Actor {
         if (event.other.owner instanceof Monkey) {
             this.takeDamage(1)
             console.log("player lost a life")
-            if (this.flowerCount > 0) {
-                this.flowerCount -= 1
-                console.log("lost flower")
-                sessionStorage.removeItem("flower")
-                console.log(sessionStorage.getItem("flower"))
-                this.scene.engine.playerProgress[3] = false
-            }
+            // if (this.flowerCount > 0) {
+            //     this.flowerCount -= 1
+            //     console.log("lost flower")
+            //     sessionStorage.removeItem("flower")
+            //     console.log(sessionStorage.getItem("flower"))
+            //     this.scene.engine.playerProgress[3] = false
+            // }
         }
     }
 
