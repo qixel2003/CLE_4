@@ -39,17 +39,18 @@ export class MoerasScene extends Scene {
 
     constructor() {
         super()
-
         this.name = "moeras"
+
     }
 
+
     onActivate(ctx) {
-        
+
         Resources.BackgroundMusicMoeras.loop = true;
         Resources.BackgroundMusicMoeras.play();
         this.clear();
 
-        
+
 
         const swampbg = new SwampBackground({ pos: new Vector(0, 0) });
         this.add(swampbg)
@@ -220,6 +221,6 @@ export class MoerasScene extends Scene {
     }
 
     onDeactivate() {
-    Resources.BackgroundMusicMoeras.stop();
-}
+        Resources.BackgroundMusicMoeras.stop();
+    }
 }

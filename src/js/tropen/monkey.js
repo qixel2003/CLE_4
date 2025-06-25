@@ -1,6 +1,10 @@
 import { Actor, Engine, Vector, Keys, CollisionType, SpriteSheet, range, Animation, Axes, Buttons, Shape } from "excalibur"
 import { Resources, ResourceLoader } from '../resources.js'
 import { Net } from './net.js'
+import { Food } from '../moeras/food.js'
+import { Player } from '../player.js'
+
+
 
 export class Monkey extends Actor {
 
@@ -92,6 +96,9 @@ export class Monkey extends Actor {
 
     onInitialize(engine) {
         this.on('collisionstart', (event) => this.hitNet(event))
+        this.on('collisionstart', (event) => this.hitFood(event))
+
+
 
     }
 
@@ -124,6 +131,16 @@ export class Monkey extends Actor {
         }
     }
 
+    hitFood(event) {
+            if (event.other.owner instanceof Food) {
+                 event.other.owner.kill()
+                const player = this.scene.actors.find(actor => actor instanceof Player)
+                    player.takeDamage(1)
+                    console.log("player lost a life")
+                this.pos = new Vector(200, 300);
+    
+            }
+        }
 
     gameOver() {
         this.pos.x = 400;

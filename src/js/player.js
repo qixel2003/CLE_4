@@ -7,6 +7,8 @@ import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
 import { Purplesaks } from './poolgebied/purplesaks.js'
 import { Penguin } from './poolgebied/penguin.js'
+import { Capybara } from './moeras/capybara.js'
+
 
 
 import { SwampBackground } from './moeras/background.js'
@@ -48,8 +50,8 @@ export class Player extends Actor {
         this.statusSpeedMultiplier = 1;
         this.statusExpireTime = 0;
         this.lastInteractTime = 0;
-        this.interactCooldown = 500; // milliseconds
-        
+        this.interactCooldown = 500;
+        this.spawnPos = new Vector(500, 300);
 
 
         this.scale = new Vector(0.4, 0.4);
@@ -327,39 +329,58 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
+        this.on('collisionstart', (event) => this.hitCapybara(event));
         this.on('collisionend', (event) => this.hitPenguin(event));
 
-        
+
     }
 
 
     hitMonkey(event) {
         if (event.other.owner instanceof Monkey) {
-            if (this.flowerCount > 0) {
-                this.flowerCount -= 1
-                console.log("lost flower")
-                sessionStorage.removeItem("flower")
-                console.log(sessionStorage.getItem("flower"))
-                this.scene.engine.playerProgress[3] = false
-            }
+            this.takeDamage(1)
+            console.log("player lost a life")
+            // if (this.flowerCount > 0) {
+            //     this.flowerCount -= 1
+            //     console.log("lost flower")
+            //     sessionStorage.removeItem("flower")
+            //     console.log(sessionStorage.getItem("flower"))
+            //     this.scene.engine.playerProgress[3] = false
+            // }
         }
     }
 
-     hitPenguin(event) {
+      hitCapybara(event) {
+        if (event.other.owner instanceof Capybara) {
+            this.takeDamage(1)
+            console.log("player lost a life")
+        }
+    }
+
+    hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
             sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
             event.other.owner.kill()
             this.scene.engine.playerProgress[2] = true
-           
+
         }
     }
 
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
-            console.log("hit Orchid");
+            sessionStorage.setItem("tropen", "orchid")
+            console.log("got Orchid")
+
+            this.flowercollection.push("orchid")
+            event.other.owner.kill()
+            console.log(this.scene.engine.playerProgress)
+            this.scene.engine.playerProgress[3] = true
             this.nearbyFlower = event.other.owner;
+
+            this.flowerCount += 1
+
         }
 
         if (event.other.owner instanceof SwampRose) {
@@ -368,11 +389,17 @@ export class Player extends Actor {
         }
 
         if (event.other.owner instanceof Purplesaks) {
-            console.log("hit Purplesaks");
+            console.log("got purplesaks")
+            sessionStorage.setItem("pool", "purplesaks")
+
             this.nearbyFlower = event.other.owner;
+
+            this.scene.engine.playerProgress[5] = true
+            event.other.owner.kill()
+            this.flowerCount += 1
         }
     }
-    
+
 
     leaveFlower(event) {
         if (event.other.owner === this.nearbyFlower) {
@@ -380,7 +407,7 @@ export class Player extends Actor {
             console.log("Moved away from the flower");
         }
     }
-    
+
 
     jump() {
         console.log("Jump action triggered");
@@ -436,7 +463,7 @@ export class Player extends Actor {
             this.flowerInteract();
         }
     }
-    
+
 
     flowerInteract() {
         if (this.nearbyFlower) {
@@ -464,7 +491,7 @@ export class Player extends Actor {
             this.nearbyFlower = null;
         }
     }
-    
+
 
 
 
@@ -492,8 +519,19 @@ export class Player extends Actor {
 
     takeDamage() {
         this.health -= 1;
+        this.pos = this.spawnPos.clone();
+
         console.log("Damage taken");
-        if(this.health<=0){
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+            }
+        }, 100);
+        if (this.health <= 0) {
             this.gameOver();
         }
     }
@@ -506,11 +544,22 @@ export class Player extends Actor {
 
     }
 
+    // gameOver() {
+    //     this.scene.engine.goToScene('game');
+    //     this.health = this.startHealth;
+    // }
 
     gameOver() {
-        this.pos.x = 400;
-        this.pos.y = 300;
-        this.health = this.startHealth;
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+                this.scene.engine.goToScene('game');
+                this.health = this.startHealth;
+            }
+        }, 100);
     }
-
 }
