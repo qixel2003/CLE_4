@@ -508,7 +508,7 @@ export class Player extends Actor {
 
     getWalkSound() {
         switch (this.scene.name) {
-            case "game": // or "lab", depending on your naming
+            case "lab": // or "lab", depending on your naming
                 return Resources.WalkingSoundLab;
             case "tropen":
                 return Resources.WalkingSoundTropen;
@@ -520,6 +520,16 @@ export class Player extends Actor {
                 return null;
         }
     }
+
+    onDeactivate() {
+    
+    const player = this.actors.find(a => a instanceof Player);
+    if (player && player.walkSoundInstance) {
+        player.walkSoundInstance.stop();
+        player.walkSoundInstance = null;
+    }
+
+}
 
     onExit(_scene) {
         if (this.walkSoundInstance) {

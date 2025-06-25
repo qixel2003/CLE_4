@@ -1,5 +1,5 @@
 import { Scene, Actor, Vector, Color, CollisionType, BoundingBox } from "excalibur";
-import { Resources } from "./resources.js";
+import { Resources, stopAllWalkingSounds } from "./resources.js";
 import { Player } from './player.js'
 import { UI } from "./UI.js";
 import { LabBackground } from "./lab/background.js";
@@ -32,10 +32,16 @@ export class MainScene extends Scene {
     constructor(player) {
         super();
         this.player = player;
+        
+         this.name = "lab"
 
     }
 
     onActivate(ctx) {
+
+        stopAllWalkingSounds()
+
+
         Resources.BackgroundMusicLab.loop = true;
         Resources.BackgroundMusicLab.play();
         this.clear();
@@ -135,6 +141,7 @@ export class MainScene extends Scene {
     }
 
     onDeactivate() {
+         stopAllWalkingSounds()
         Resources.BackgroundMusicLab.stop();
     }
 }
