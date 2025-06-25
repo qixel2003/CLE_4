@@ -521,7 +521,7 @@ export class Player extends Actor {
         }
     }
 
-    onDeactivate() {
+    onExit(_scene) {
         if (this.walkSoundInstance) {
             this.walkSoundInstance.stop();
             this.walkSoundInstance = null;
