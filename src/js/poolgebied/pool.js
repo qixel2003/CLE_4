@@ -12,6 +12,7 @@ import { SnowPile } from "./snowpile.js";
 import { SnowMan } from "./snowman.js";
 import { Purplesaks } from "./purplesaks.js";
 import { Penguin } from "./penguin.js";
+import { UI } from "../UI.js";
 
 
 
@@ -32,6 +33,8 @@ export class PoolScene extends Scene {
 
     onActivate(ctx) {
         this.clear();
+
+        Resources.BackgroundMusicMoeras.isStopped = true;
 
         const poolbg = new PoolBackground({ pos: new Vector(0, 0) });
         this.add(poolbg)
@@ -77,6 +80,9 @@ export class PoolScene extends Scene {
 
         let poolBorderBottom = new PoolBorderBottom();
         this.add(poolBorderBottom)
+
+        const playerUI = new UI(player)
+        this.add(playerUI)
     }
 
     positionObstacle(ObstacleClass, number, positions) {

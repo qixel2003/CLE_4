@@ -344,8 +344,10 @@ export class Player extends Actor {
 
      hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
+            sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
-             event.other.owner.kill()
+            event.other.owner.kill()
+            this.scene.engine.playerProgress[2] = true
            
         }
     }
@@ -379,11 +381,10 @@ export class Player extends Actor {
 
          if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
-            // sessionStorage.setItem("swamp", "swamprose")
-            // this.flowercollection.push("swamprose")
-            // console.log(sessionStorage.getItem("swamp"))
+            sessionStorage.setItem("pool", "purplesaks")
+            
 
-            // this.scene.engine.playerProgress[4] = true
+            this.scene.engine.playerProgress[5] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }
