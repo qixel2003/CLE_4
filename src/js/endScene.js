@@ -157,4 +157,17 @@ export class EndScene extends Scene {
         }
     }
 
+    onActivate(ctx) {
+        Resources.BackgroundMusicEndScene.loop = true;
+        Resources.BackgroundMusicEndScene.play();
+        // this.clear();
+    }
+
+
+
+    onDeactivate() {
+        
+        Resources.BackgroundMusicEndScene.stop();
+    }
+
 }
