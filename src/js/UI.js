@@ -80,7 +80,6 @@ export class UI extends ScreenElement {
         this.heartEmpty.scale.setTo(0.15, 0.15);
 
         this.updateHearts(); // Initial render
-        this.showAnimalPortraits()
 
 
 
@@ -120,7 +119,7 @@ export class UI extends ScreenElement {
         }
     }
 
-    showAnimalPortraits() {
+    showAnimalPortraits(engine) {
         // get the player progress from the main gameMore actions
 
         let progress = this.scene.engine.playerProgress

@@ -1,4 +1,4 @@
-import { Scene, Label, Color, Font, FontUnit, Vector, Keys, ImageSource, Actor, SpriteSheet, range } from "excalibur"
+import { Scene, Label, Color, Font, FontUnit, Vector, Keys, ImageSource, Actor, SpriteSheet, range, Buttons } from "excalibur"
 import { Resources } from "./resources";
 
 export class EndScene extends Scene {
@@ -143,6 +143,13 @@ export class EndScene extends Scene {
                 // engine.goToScene('start');
             }
         });
+
+        const gamepad = engine.input.gamepads.at(0);
+
+        if (gamepad && gamepad.isButtonPressed(Buttons.Face3) && this.readyForEnter) {
+            sessionStorage.clear();
+            engine.goToScene('start');
+        }
 
         typeName();
     }

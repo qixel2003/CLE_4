@@ -49,6 +49,9 @@ export class Player extends Actor {
         this.statusEffect = null;
         this.statusSpeedMultiplier = 1;
         this.statusExpireTime = 0;
+        this.lastInteractTime = 0;
+        this.interactCooldown = 500;
+        this.spawnPos = new Vector(500, 300);
 
 
         this.scale = new Vector(0.4, 0.4);
@@ -269,10 +272,10 @@ export class Player extends Actor {
                 animSet = true;
             }
 
-            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X
+            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X this.jump()
             if (gamepad.isButtonPressed(Buttons.Face2)) this.catch(); //◯
             if (gamepad.isButtonPressed(Buttons.Face3)) this.interact(); //▢
-            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△
+            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△ldow
 
             if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearDoor && this.doorTargetScene) {
                 engine.goToScene(this.doorTargetScene);
@@ -366,7 +369,6 @@ export class Player extends Actor {
 
 
     hitFlower(event) {
-
         if (event.other.owner instanceof Orchid) {
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
@@ -375,33 +377,28 @@ export class Player extends Actor {
             event.other.owner.kill()
             console.log(this.scene.engine.playerProgress)
             this.scene.engine.playerProgress[3] = true
+            this.nearbyFlower = event.other.owner;
 
             this.flowerCount += 1
 
         }
 
         if (event.other.owner instanceof SwampRose) {
-            console.log("got swampRose")
-            sessionStorage.setItem("swamp", "swamprose")
-            this.flowercollection.push("swamprose")
-            console.log(sessionStorage.getItem("swamp"))
-
-            this.scene.engine.playerProgress[4] = true
-            event.other.owner.kill()
-            this.flowerCount += 1
+            console.log("hit SwampRose");
+            this.nearbyFlower = event.other.owner;
         }
 
         if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
             sessionStorage.setItem("pool", "purplesaks")
 
+            this.nearbyFlower = event.other.owner;
 
             this.scene.engine.playerProgress[5] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }
     }
-
 
 
     leaveFlower(event) {
@@ -412,21 +409,26 @@ export class Player extends Actor {
     }
 
 
-
-
     jump() {
         console.log("Jump action triggered");
         // Implement jump logic here (e.g., apply upward velocity if grounded)
     }
-
 
     attack() {
         console.log("Attack action triggered");
         // Implement attack logic here (e.g., play animation, detect hit)
     }
 
-
     catch() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
+        // let b = new Net()
+        // b.pos = new Vector(this.pos.x, this.pos.y)
+        // this.scene.add(b)
+        // this.scene.add(new Net(this.pos.x + this.width/2, this.pos.y))
         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
             let direction = new Vector(1, 0);
             let net = new Net(this.pos, direction);
@@ -437,6 +439,11 @@ export class Player extends Actor {
     }
 
     layFood() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
         if (this.scene && ["tropen", "moeras", "pool", "savanne"].includes(this.scene.name)) {
             const food = new Food(this.pos.clone());
             this.scene.add(food);
@@ -444,39 +451,47 @@ export class Player extends Actor {
         }
     }
 
-
     interact() {
+        const now = Date.now();
+        if (now - this.lastInteractTime < this.interactCooldown) {
+            return; // Still on cooldown
+        }
+        this.lastInteractTime = now;
+
         console.log("Interact action triggered");
         if (this.nearbyFlower) {
             this.flowerInteract();
         }
     }
 
+
     flowerInteract() {
         if (this.nearbyFlower) {
             this.flowerCount += 1;
             console.log("Picked up flower! Total:", this.flowerCount);
 
-            // Determine flower type
             if (this.nearbyFlower instanceof Orchid) {
                 sessionStorage.setItem("tropen", "orchid");
                 this.flowercollection.push("orchid");
                 this.scene.engine.playerProgress[2] = true;
                 console.log("Got Orchid");
-                console.log("Flower collection:", this.flowercollection);
-            }
-            else if (this.nearbyFlower instanceof SwampRose) {
+            } else if (this.nearbyFlower instanceof SwampRose) {
                 sessionStorage.setItem("swamp", "swamprose");
                 this.flowercollection.push("swamprose");
+                this.scene.engine.playerProgress[4] = true;
                 console.log("Got SwampRose");
-                console.log("Flower collection:", this.flowercollection);
+            } else if (this.nearbyFlower instanceof Purplesaks) {
+                sessionStorage.setItem("pool", "purplesaks");
+                this.flowercollection.push("purplesaks");
+                this.scene.engine.playerProgress[5] = true;
+                console.log("Got Purplesaks");
             }
 
-            // Kill the flower after picking it up
             this.nearbyFlower.kill();
             this.nearbyFlower = null;
         }
     }
+
 
 
 
@@ -504,7 +519,21 @@ export class Player extends Actor {
 
     takeDamage() {
         this.health -= 1;
+        this.pos = this.spawnPos.clone();
+
         console.log("Damage taken");
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+            }
+        }, 100);
+        if (this.health <= 0) {
+            this.gameOver();
+        }
     }
 
     onCollisionStart(event) {
@@ -515,11 +544,22 @@ export class Player extends Actor {
 
     }
 
+    // gameOver() {
+    //     this.scene.engine.goToScene('game');
+    //     this.health = this.startHealth;
+    // }
 
     gameOver() {
-        this.pos.x = 400;
-        this.pos.y = 300;
-        this.health = this.startHealth;
+        let flashes = 6;
+        let flashInterval = setInterval(() => {
+            this.graphics.opacity = this.graphics.opacity === 1 ? 0.2 : 1;
+            flashes--;
+            if (flashes <= 0) {
+                clearInterval(flashInterval);
+                this.graphics.opacity = 1;
+                this.scene.engine.goToScene('game');
+                this.health = this.startHealth;
+            }
+        }, 100);
     }
-
 }

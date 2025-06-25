@@ -56,8 +56,8 @@ export class LabBook extends Actor {
             this.currentPage < this.pages.length - 1
         ) {
             this.currentPage++;
-            this.popup.text = this.pages[this.currentPage];
-            this.updateArrows();
+            this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+            this.popupRight.text = this.pages[this.currentPage * 2 + 1] || ""; this.updateArrows();            this.updateArrows();
             this.lastInputTime.dpadRight = now;
         }
 
@@ -68,14 +68,14 @@ export class LabBook extends Actor {
             this.currentPage > 0
         ) {
             this.currentPage--;
-            this.popup.text = this.pages[this.currentPage];
-            this.updateArrows();
+            this.popupLeft.text = this.pages[this.currentPage * 2] || "";
+            this.popupRight.text = this.pages[this.currentPage * 2 + 1] || ""; this.updateArrows();
             this.lastInputTime.dpadLeft = now;
         }
 
         // Face4 to close
         if (
-            gamepad.isButtonPressed(Buttons.Face4) &&
+            gamepad.isButtonPressed(Buttons.Face2) &&
             now - this.lastInputTime.face4 > this.inputCooldown
         ) {
             this.closePopup(engine);
