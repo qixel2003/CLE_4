@@ -1,7 +1,9 @@
-import { Scene, Label, Color, Font, FontUnit, Vector, Keys } from "excalibur"
+import { Scene, Label, Color, Font, FontUnit, Vector, Keys, ImageSource, Actor, SpriteSheet, range } from "excalibur"
+import { Resources } from "./resources";
 
 export class EndScene extends Scene {
     readyForEnter = false;
+
 
     onInitialize(engine) {
         this.engine = engine;
@@ -75,6 +77,39 @@ export class EndScene extends Scene {
                 setInterval(() => {
                     this.pressLabel.graphics.opacity = this.pressLabel.graphics.opacity === 1 ? 0.4 : 1;
                 }, 1000);
+
+                const speed = 300;
+
+                const monkeySheet = SpriteSheet.fromImageSource({
+                    image: Resources.MutatedMonkey,
+                    grid: { rows: 1, columns: 12, spriteWidth: 50, spriteHeight: 250 }
+                });
+                const monkeySprite = monkeySheet.sprites[3];
+
+                const monkeyActor = new Actor({
+                    pos: new Vector(0, 700),
+                    width: 300,
+                    height: 300,
+                    vel: new Vector(speed, 0)
+                });
+                monkeyActor.graphics.use(monkeySprite);
+                this.add(monkeyActor);
+
+                const capybaraSheet = SpriteSheet.fromImageSource({
+                    image: Resources.Capybara,
+                    grid: { rows: 1, columns: 12, spriteWidth: 100, spriteHeight: 100 }
+                });
+
+                const capybaraSprite = capybaraSheet.sprites[1];
+
+                const capybaraActor = new Actor({
+                    pos: new Vector(-200, 600),
+                    width: 300,
+                    height: 300,
+                    vel: new Vector(speed, 0)
+                });
+                capybaraActor.graphics.use(capybaraSprite);
+                this.add(capybaraActor);
             }
         };
         engine.input.keyboard.on('press', (evt) => {

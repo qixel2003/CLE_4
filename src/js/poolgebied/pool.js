@@ -9,6 +9,13 @@ import { PoolBorderBottom } from "./poolBorderBottom.js";
 import { PoolBackground } from "./background.js";
 import { SnowMountain } from "./snowMountain.js";
 import { SnowPile } from "./snowpile.js";
+import { SnowMan } from "./snowman.js";
+import { Purplesaks } from "./purplesaks.js";
+import { Penguin } from "./penguin.js";
+
+
+
+
 
 
 
@@ -36,15 +43,18 @@ export class PoolScene extends Scene {
         this.pos = new Vector(300, 60);
         this.width = new Vector(30, 0)
         this.height = new Vector(30, 0)
+        this.add(player)
+
+        let penguin = new Penguin()
+        this.add(penguin)
 
         this.obstaclePositions = []
-
-        this.add(player)
 
 
         this.positionObstacle(SnowMountain, 8, this.obstaclePositions)
         this.positionObstacle(SnowPile, 4, this.obstaclePositions)
-
+        this.positionObstacle(SnowMan, 6, this.obstaclePositions)
+        this.positionObstacle(Purplesaks, 1, this.obstaclePositions)
 
 
         const minX = 0;
@@ -107,6 +117,9 @@ export class PoolScene extends Scene {
             if (isFarEnough(x, y)) {
                 let obstacle = new ObstacleClass();
                 obstacle.pos = new Vector(x, y);
+
+                obstacle.z = 2;
+
                 this.add(obstacle);
                 console.log(x, y)
                 positions.push({ x: x, y: y });

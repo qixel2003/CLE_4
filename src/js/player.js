@@ -5,6 +5,10 @@ import { Orchid } from './tropen/flower.js'
 import { Net } from './tropen/net.js'
 import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
+import { Purplesaks } from './poolgebied/purplesaks.js'
+import { Penguin } from './poolgebied/penguin.js'
+
+
 import { SwampBackground } from './moeras/background.js'
 import { SwampBackground1 } from "./moeras/swampbg1.js";
 import { SwampBackground2 } from "./moeras/swampbg2.js";
@@ -36,6 +40,7 @@ export class Player extends Actor {
             collisionType: CollisionType.Active
         });
 
+        this.isReadingBook = false;
         this.health = health;
         this.startHealth = health;
         this.baseSpeed = 300;
@@ -85,6 +90,12 @@ export class Player extends Actor {
         let yspeed = 0;
         let kb = engine.input.keyboard;
         let speed = this.baseSpeed * this.statusSpeedMultiplier;
+
+        if (this.isReadingBook) {
+            this.vel = new Vector(0, 0);
+            return;
+        }
+
 
         // Expire status effect
         if (this.statusEffect && Date.now() > this.statusExpireTime) {
@@ -256,9 +267,28 @@ export class Player extends Actor {
                 animSet = true;
             }
 
-            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump();
-            if (gamepad.isButtonPressed(Buttons.Face2)) this.attack();
-            if (gamepad.isButtonPressed(Buttons.Face3)) this.interact();
+            if (gamepad.isButtonPressed(Buttons.Face1)) this.jump(); //X
+            if (gamepad.isButtonPressed(Buttons.Face2)) this.catch(); //◯
+            if (gamepad.isButtonPressed(Buttons.Face3)) this.interact(); //▢
+            if (gamepad.isButtonPressed(Buttons.Face4)) this.layFood(); //△
+
+            if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearDoor && this.doorTargetScene) {
+                engine.goToScene(this.doorTargetScene);
+                setTimeout(() => {
+                    this.canUseDoor = true;
+                }, 2000);
+            }
+
+            if (gamepad.isButtonPressed(Buttons.Face3) && this.isNearBook) {
+                const book = engine.currentScene.actors.find(a => a instanceof LabBook);
+                if (book) {
+                    if (!book.popupBg) {
+                        book.showPopup(engine);
+                    } else {
+                        book.closePopup(engine);
+                    }
+                }
+            }
         }
 
         // Final velocity clamp
@@ -294,7 +324,9 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
+        this.on('collisionend', (event) => this.hitPenguin(event));
 
+        
     }
 
 
@@ -307,6 +339,14 @@ export class Player extends Actor {
                 console.log(sessionStorage.getItem("flower"))
                 this.scene.engine.playerProgress[3] = false
             }
+        }
+    }
+
+     hitPenguin(event) {
+        if (event.other.owner instanceof Penguin) {
+            console.log("got Penguin")
+             event.other.owner.kill()
+           
         }
     }
 
@@ -332,6 +372,18 @@ export class Player extends Actor {
             this.flowercollection.push("swamprose")
             console.log(sessionStorage.getItem("swamp"))
 
+            this.scene.engine.playerProgress[4] = true
+            event.other.owner.kill()
+            this.flowerCount += 1
+        }
+
+         if (event.other.owner instanceof Purplesaks) {
+            console.log("got purplesaks")
+            // sessionStorage.setItem("swamp", "swamprose")
+            // this.flowercollection.push("swamprose")
+            // console.log(sessionStorage.getItem("swamp"))
+
+            // this.scene.engine.playerProgress[4] = true
             event.other.owner.kill()
             this.flowerCount += 1
         }
