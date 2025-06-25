@@ -7,6 +7,8 @@ import { Food } from './moeras/food.js'
 import { SwampRose } from './moeras/swampRose.js'
 import { Purplesaks } from './poolgebied/purplesaks.js'
 import { Penguin } from './poolgebied/penguin.js'
+import { Capybara } from './moeras/capybara.js'
+
 
 
 import { SwampBackground } from './moeras/background.js'
@@ -324,14 +326,17 @@ export class Player extends Actor {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
         this.on('collisionend', (event) => this.leaveFlower(event));
+        this.on('collisionstart', (event) => this.hitCapybara(event));
         this.on('collisionend', (event) => this.hitPenguin(event));
 
-        
+
     }
 
 
     hitMonkey(event) {
         if (event.other.owner instanceof Monkey) {
+            this.takeDamage(1)
+            console.log("player lost a life")
             if (this.flowerCount > 0) {
                 this.flowerCount -= 1
                 console.log("lost flower")
@@ -342,13 +347,20 @@ export class Player extends Actor {
         }
     }
 
-     hitPenguin(event) {
+      hitCapybara(event) {
+        if (event.other.owner instanceof Capybara) {
+            this.takeDamage(1)
+            console.log("player lost a life")
+        }
+    }
+
+    hitPenguin(event) {
         if (event.other.owner instanceof Penguin) {
             sessionStorage.setItem("poolanimal", "penguin")
             console.log("got Penguin")
             event.other.owner.kill()
             this.scene.engine.playerProgress[2] = true
-           
+
         }
     }
 
@@ -358,7 +370,7 @@ export class Player extends Actor {
         if (event.other.owner instanceof Orchid) {
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
-            
+
             this.flowercollection.push("orchid")
             event.other.owner.kill()
             console.log(this.scene.engine.playerProgress)
@@ -379,10 +391,10 @@ export class Player extends Actor {
             this.flowerCount += 1
         }
 
-         if (event.other.owner instanceof Purplesaks) {
+        if (event.other.owner instanceof Purplesaks) {
             console.log("got purplesaks")
             sessionStorage.setItem("pool", "purplesaks")
-            
+
 
             this.scene.engine.playerProgress[5] = true
             event.other.owner.kill()
