@@ -19,6 +19,7 @@ const Resources = {
     LongBooks2: new ImageSource("images/longbooks.png"),
 
  
+    Trigger: new ImageSource("images/triggerplayer.png"),
 
     //lab decorations
     Purplepotion: new ImageSource("images/lab/purplepotion.png"),

@@ -27,6 +27,8 @@ export class Game extends Engine {
         // capybara, monkey, orchid discovery More actions
         this.playerProgress = [false, false, false, false, false, false]
 
+        this.tableHit = false
+
         this.start(ResourceLoader).then(() => this.startGame())
 
 
@@ -43,6 +45,8 @@ export class Game extends Engine {
         this.add('moeras', new MoerasScene())
         this.add('tropen', new TropenScene())
         this.add('end', new EndScene());
+
+        
         // this.goToScene('game')
         this.goToScene('start');
     }
@@ -50,4 +54,4 @@ export class Game extends Engine {
 }
 
 let test = new Game()
-console.log(test.playerProgress)
+console.log(test)

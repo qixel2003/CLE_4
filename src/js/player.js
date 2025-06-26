@@ -24,6 +24,7 @@ import { SwampBackground82 } from "./moeras/swampbg82.js";
 import { SwampBackground83 } from "./moeras/swampbg83.js";
 import { SwampBackground9 } from "./moeras/swampbg9.js";
 import { LabBook } from "./lab/book.js"
+import { Trigger } from "./trigger.js"
 
 export class Player extends Actor {
     isNearDoor = false;
@@ -289,11 +290,13 @@ export class Player extends Actor {
     onInitialize(engine) {
         this.on('collisionstart', (event) => this.hitMonkey(event));
         this.on('collisionstart', (event) => this.hitFlower(event));
+
         this.on('collisionend', (event) => this.leaveFlower(event));
         this.on('collisionstart', (event) => this.hitCapybara(event));
         this.on('collisionend', (event) => this.hitPenguin(event));
 
-
+        this.on('collisionstart', (event) => this.hitTable(event))
+        this.on('collisionend', (event) => this.leftTable(event))
     }
 
     // onActivate(ctx){
@@ -302,6 +305,8 @@ export class Player extends Actor {
     //     this.clear();
     //     }
     // }
+
+
 
 
     hitMonkey(event) {
@@ -330,12 +335,28 @@ export class Player extends Actor {
         }
     }
 
+    hitTable(event) {
+        if (event.other.owner instanceof Trigger) {
+            this.scene.engine.tableHit = true
+            console.log("on")
+        }
+    }
+
+    leftTable(event) {
+        if (event.other.owner instanceof Trigger) {
+            this.scene.engine.tableHit = false
+            console.log("off")
+
+        }
+    }
+
 
     hitFlower(event) {
         if (event.other.owner instanceof Orchid) {
                 Resources.PickUp.play();
             sessionStorage.setItem("tropen", "orchid")
             console.log("got Orchid")
+
 
             this.flowercollection.push("orchid")
             event.other.owner.kill()
@@ -353,6 +374,7 @@ export class Player extends Actor {
             console.log("hit SwampRose");
             this.nearbyFlower = event.other.owner;
         }
+
 
         if (event.other.owner instanceof Purplesaks) {
                 Resources.PickUp.play();
@@ -556,3 +578,4 @@ export class Player extends Actor {
         }, 100);
     }
 }
+
