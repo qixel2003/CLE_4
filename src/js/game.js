@@ -6,9 +6,9 @@ import { BoundingBox } from "excalibur"
 import { PoolScene } from './poolgebied/pool.js'
 import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
-import { MainScene } from './mainScene.js'
 import { StartScene } from './startScene.js'
 import { EndScene } from './endScene.js'
+import { MainScene } from './mainscene.js'
 
 
 export class Game extends Engine {
@@ -46,7 +46,7 @@ export class Game extends Engine {
         this.add('tropen', new TropenScene())
         this.add('end', new EndScene());
 
-        
+
         // this.goToScene('game')
         this.goToScene('start');
     }
