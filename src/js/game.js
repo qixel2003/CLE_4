@@ -8,7 +8,7 @@ import { MoerasScene } from './moeras/swamp.js'
 import { TropenScene } from './tropen/tropen.js'
 import { StartScene } from './startScene.js'
 import { EndScene } from './endScene.js'
-import { MainScene } from './mainscene.js'
+import { MainScene } from './mainScene.js'
 
 
 export class Game extends Engine {
