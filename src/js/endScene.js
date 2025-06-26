@@ -18,7 +18,7 @@ export class EndScene extends Scene {
         });
 
         const nameText = "Code-X: Outbreak ZomBEASTs";
-        const fullText = "Gefeliciteerd je heb gewonnen!";
+        const fullText = "Gefeliciteerd je hebt gewonnen!";
 
         const nameLabel = new Label({
             text: "",
@@ -166,7 +166,7 @@ export class EndScene extends Scene {
 
 
     onDeactivate() {
-        
+
         Resources.BackgroundMusicEndScene.stop();
     }
 

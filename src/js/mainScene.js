@@ -34,8 +34,8 @@ export class MainScene extends Scene {
     constructor(player) {
         super();
         this.player = player;
-        
-         this.name = "lab"
+
+        this.name = "lab"
 
     }
 
@@ -92,9 +92,6 @@ export class MainScene extends Scene {
         let labBook = new LabBook();
         this.add(labBook)
 
-        let tableTrigger = new Trigger()
-        this.add(tableTrigger)
-
         let purplePotion = new Purplepotion();
         this.add(purplePotion)
 
@@ -121,11 +118,11 @@ export class MainScene extends Scene {
 
         let mixer = new Mixer();
         this.add(mixer)
-        
+
 
         this.add(this.player);
 
-        
+
 
         const minX = 0;
         const maxX = 1240;
@@ -140,7 +137,7 @@ export class MainScene extends Scene {
         console.log("spawn");
         this.add(playerUI)
 
-        
+
         console.log(this.player instanceof Actor); // moet true zijn
 
 
@@ -148,7 +145,7 @@ export class MainScene extends Scene {
     }
 
     onDeactivate() {
-         stopAllWalkingSounds()
+        stopAllWalkingSounds()
         Resources.BackgroundMusicLab.stop();
     }
 }
