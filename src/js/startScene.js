@@ -138,7 +138,7 @@ export class StartScene extends Scene {
 
 
         const nameText = "Code-X: Outbreak ZomBEASTs";
-        const fullText = "Je bent een dokter die een infectie moet stoppen\nen geïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren te verslaan\nen planten te verzamelen om een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere gebieden.\n\nJe vangt de dieren op verschillende manieren:\nspringen, gooien, lokken.\n\nJe verliest een leven wanneer je iets verkeerd vangt.\n\nAls je dood bent verlies je progressie in de kamer\nen moet je vanaf het begin beginnen.\n\nGa naar het boek voor meer informatie.";
+        const fullText = "Je bent een dokter die een infectie moet stoppen\nen geïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren te vangen\nen planten te verzamelen om een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere gebieden.\n\nJe vangt de dieren op verschillende manieren:\aanraken, gooien, lokken.\n\nJe verliest een leven wanneer je een dier op de verkeerde manier vangt.\n\nAls je dood bent verlies je je progressie in de kamer\nen moet je vanaf het begin beginnen.\n\nGa naar het boek voor meer informatie.";
 
         this.nameLabel.text = nameText;
         this.infoLabel.text = fullText;
@@ -180,13 +180,12 @@ export class StartScene extends Scene {
     onActivate(ctx) {
         Resources.BackgroundMusicStartScene.loop = true;
         Resources.BackgroundMusicStartScene.play();
-        // this.clear();
     }
 
 
 
     onDeactivate() {
-        
+
         Resources.BackgroundMusicStartScene.stop();
     }
 }

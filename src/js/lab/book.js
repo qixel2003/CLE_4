@@ -11,10 +11,10 @@ export class LabBook extends Actor {
         this.collider.set(Shape.Box(900, 1200));
         this.pos = new Vector(600, 460);
         this.pages = [
-            "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte verslaan en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: springen, gooien, lokken.\n\nJe verliest een leven wanneer je iets\nverkeerd vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het\nbegin beginnen.",
+            "Je bent een dokter die een\ninfectie moet stoppen en\ngeïnfecteerde dieren moet genezen.\n\nDit doe je door geïnfecteerde dieren\nte vangen en planten te verzamelen\nom een medicijn te maken.\n\nJe start in een laboratorium,\nde kamers leiden naar andere\ngebieden.\n\nJe vangt de dieren op verschillende\nmanieren: aanraken, gooien, lokken.\n\nJe verliest een leven wanneer je een dier\nop de verkeerde manier vangt.\n\nAls je “dood” bent verlies je progressie\nin de kamer en moet je vanaf het\nbegin beginnen.",
             "Controls:\n\nDoor de sticks te gebruiken voren,\nachteren, links en rechts.\n\nMet het ▢ kan je interacten\nmet objecten.",
-            "Vangmethodes:\n\nDoor op het ◯ te klikken gooi je\neen net.\n\nDoor eten neer te leggen met △ kan je\neen dier lokken.\n\nDoor op een dier te lopen vang je\neen dier.",
-            "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat het hoogst springt moet\nmet een net worden gevangen.\n\nHet dier dat eten op ze hoofd heeft\nmoet je lokken.\n\nOp het dier dat glijdt moet je staan."
+            "Vangmethodes:\n\nDoor op het ◯ te klikken gooi je\neen net.\n\nDoor eten neer te leggen met △ kan je\neen dier lokken.\n\nDoor op een dier aan te raken vang je\neen dier.",
+            "Hints voor de bijpassende\nvangmethodes:\n\nHet dier dat op twee poten loopt moet\nmet een net worden gevangen.\n\nHet dier dat eten op zijn hoofd heeft\nmoet je lokken.\n\nHet dier dat glijdt moet je aanraken."
         ];
         this.currentPage = 0;
         this.popup = null;
