@@ -64,7 +64,7 @@ export class EndScene extends Scene {
             } else {
                 this.readyForEnter = true;
                 this.pressLabel = new Label({
-                    text: "Druk op ENTER om opnieuw te spelen",
+                    text: "Druk op ▢ om opnieuw te spelen",
                     pos: engine.screen.center.add(new Vector(0, 325)),
                     font: new Font({
                         unit: FontUnit.Px,

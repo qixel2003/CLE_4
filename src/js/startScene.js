@@ -59,7 +59,7 @@ export class StartScene extends Scene {
 
 
         this.skipLabel = new Label({
-            text: "Druk op spatie om over te slaan",
+            text: "Druk op ◯ om over te slaan",
             pos: engine.screen.center.add(new Vector(0, 400)),
             font: new Font({
                 unit: FontUnit.Px,
@@ -108,7 +108,7 @@ export class StartScene extends Scene {
             } else {
                 this.readyForEnter = true;
                 this.pressLabel = new Label({
-                    text: "Druk op ENTER om door te gaan",
+                    text: "Druk op ▢ om door te gaan",
                     pos: engine.screen.center.add(new Vector(0, 325)),
                     font: new Font({
                         unit: FontUnit.Px,
@@ -144,7 +144,7 @@ export class StartScene extends Scene {
         this.infoLabel.text = fullText;
 
         this.pressLabel = new Label({
-            text: "Druk op ENTER om door te gaan",
+            text: "Druk op ▢ om door te gaan",
             pos: this.engine.screen.center.add(new Vector(0, 325)),
             font: new Font({
                 unit: FontUnit.Px,
